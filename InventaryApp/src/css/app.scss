@@ -1,0 +1,243 @@
+// app global css in SCSS form
+
+// Print media rules to hide elements when generating PDF report files
+@media print {
+  header,
+  .q-header,
+  .q-drawer,
+  .no-print,
+  .q-btn,
+  .q-field,
+  .q-tabs,
+  .q-btn-dropdown,
+  aside {
+    display: none !important;
+  }
+
+  .q-page-container {
+    padding-left: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  .q-page {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .q-card {
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  .q-table__container {
+    border: none !important;
+  }
+}
+
+// Micro-animations for high-fidelity UI
+.hover-scale {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12) !important;
+  }
+}
+
+.bg-white-translucent {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.rounded-btn {
+  border-radius: 8px !important;
+  text-transform: none !important;
+}
+
+.rounded-card {
+  border-radius: 12px !important;
+}
+
+// Global Dark Mode fixes for inputs, selects, popups, and tables
+.body--dark {
+  // Fix text, labels, and icons color in all input fields
+  .q-field__native,
+  .q-field__input,
+  .q-field__prefix,
+  .q-field__suffix,
+  .q-placeholder,
+  .q-field__label {
+    color: rgba(255, 255, 255, 0.9) !important;
+  }
+
+  .q-field__marginal {
+    color: rgba(255, 255, 255, 0.7) !important;
+  }
+
+  // Filled input background in dark mode
+  .q-field--filled .q-field__control {
+    background: rgba(255, 255, 255, 0.08) !important;
+    &:hover {
+      background: rgba(255, 255, 255, 0.12) !important;
+    }
+  }
+
+  // Outlined inputs border color
+  .q-field--outlined .q-field__control:before {
+    border-color: rgba(255, 255, 255, 0.24) !important;
+  }
+
+  // Dropdown list popups, options list, select menus, dialog cards
+  .q-menu,
+  .q-dialog__inner .q-card {
+    background-color: #1e1e1e !important;
+    color: #ffffff !important;
+  }
+
+  // Menu items inside popups / selects options
+  .q-menu .q-item,
+  .q-virtual-scroll__content .q-item,
+  .q-item__label,
+  .q-select__dropdown-icon,
+  .q-field__native,
+  .q-field__input {
+    color: #ffffff !important;
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1) !important;
+    }
+  }
+
+  .q-table th {
+    color: #ffffff !important;
+  }
+
+  .q-field--filled .q-field__control,
+  .q-field--outlined .q-field__control:before {
+    color: #ffffff !important;
+  }
+
+  /* Additional dark mode fixes for search bar and tabs */
+  .q-input--dark .q-input,
+  .q-input--dark .q-field__control,
+  .q-select--dark .q-field__control,
+  .q-input--dark .q-field__native,
+  .q-input--dark .q-field__input,
+  .q-input--dark .q-select__dropdown-icon {
+    background-color: #1e1e1e !important;
+    color: #ffffff !important;
+  }
+
+  .q-tabs .q-tab,
+  .q-tabs .q-tab .q-icon,
+  .q-tab,
+  .q-tab .q-icon {
+    background-color: #1e1e1e !important;
+    color: #ffffff !important;
+  }
+
+  .q-tab--active {
+    background-color: var(--q-primary) !important;
+    color: #ffffff !important;
+  }
+
+  // Ensure dropdown lists, popups, table headers, search inputs and icons are visible in dark mode
+  .q-menu,
+  .q-dialog__inner .q-card,
+  .q-select__menu,
+  .q-table th,
+  .q-input__append,
+  .q-select__dropdown-icon,
+  .q-btn-dropdown__arrow,
+  table .q-btn__content.q-anchor--skip {
+    color: #ffffff !important;
+  }
+
+  .q-card.q-dark,
+  .q-card__section.q-card__section--vert.q-pa-md.bg-grey-1 {
+    background: var(--q-dark) !important;
+  }
+
+  .q-table__top .q-input,
+  .q-field__control,
+  .q-field__native,
+  .q-field__input,
+  .q-item__label {
+    color: #ffffff !important;
+  }
+
+  .q-menu,
+  .q-dialog__inner .q-card,
+  .q-select__menu {
+    background-color: #1e1e1e !important;
+    color: #ffffff !important;
+  }
+
+  .q-field--filled .q-field__control,
+  .q-field--outlined .q-field__control:before {
+    color: #ffffff !important;
+  }
+
+  // Specific fix for downlist (dropdown) arrows, search inputs, table headers and menu icons in dark mode
+  .q-select__dropdown-icon,
+  .q-field__label,
+  .q-placeholder,
+  .q-table th,
+  .q-table__top .q-input__control,
+  .q-menu .q-item__label {
+    color: #ffffff !important;
+  }
+
+  .q-field--dark .q-field__control,
+  .q-input--dark .q-field__control,
+  .q-select--dark .q-field__control {
+    color: #ffffff !important;
+  }
+
+  .q-menu .q-item--active {
+    background-color: var(--q-primary) !important;
+    color: #ffffff !important;
+  }
+
+  // Force table headers to be dark in dark mode, avoiding light-grey hardcoded headers
+  .q-table th {
+    background-color: #242426 !important;
+    color: #ffffff !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  }
+
+  .q-table tbody tr:hover {
+    background-color: rgba(255, 255, 255, 0.04) !important;
+  }
+
+  .q-table td {
+    color: rgba(255, 255, 255, 0.9) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+  }
+
+  .q-table {
+    color: rgba(255, 255, 255, 0.9) !important;
+  }
+
+  .text-center.bg-red-1.text-red.text-weight-bold {
+    color: rgb(255, 72, 72) !important;
+  }
+}
+
+.body--light .menu-item,
+.body--dark .menu-item,
+.active-link,
+.body--light .active-link,
+.body--dark .active-link {
+  font-weight: normal !important;
+}
+
+.q-item.q-item-type.row.no-wrap.q-item--dark.q-py-md.bg-grey-2 {
+  background-color: #1e1e1e !important;
+  color: #ffffff !important;
+}
+
+.bg-gradient-brand {
+  background: linear-gradient(
+    135deg,
+    var(--q-primary) 0%,
+    var(--q-secondary) 100%
+  ) !important;
+}
