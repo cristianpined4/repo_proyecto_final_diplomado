@@ -1,0 +1,254 @@
+﻿=== PAGINA 1 ===
+UNIVERSIDAD DE EL SALVADOR - FACULTAD MULTIDISCIPLINARIA ORIENTAL
+UNIVERSIDAD DE EL SALVADOR
+FACULTAD MULTIDISCIPLINARIA ORIENTAL
+DEPARTAMENTO DE INGENIER├ìA Y ARQUITECTURA
+SECCI├ôN DE INGENIERIA DE SISTEMAS INFORM├üTICOS
+CURSO DE ESPECIALIZACI├ôN
+ÔÇ£ADMINISTRACI├ôN DE BASES DE DATOS E
+INTELIGENCIA DE NEGOCIOSÔÇØ
+LINEAMIENTOS PARA LA ELABORACI├ôN DEL PROYECTO FINAL
+Carrera: Ingenier├¡a de Sistemas Inform├íticos
+Modalidad: Curso de Especializaci├│n
+A├▒o acad├®mico: 2026
+Coordinador y docente asesor: Ing. Hector Javier Paiz Ramos
+Ciudad Universitaria Oriental, San Miguel, El Salvador
+Curso de Especializaci├│n 2026 | P├ígina 1
+
+=== PAGINA 2 ===
+UNIVERSIDAD DE EL SALVADOR - FACULTAD MULTIDISCIPLINARIA ORIENTAL
+1. FINALIDAD DEL PROYECTO
+El proyecto final tiene como finalidad integrar las competencias desarrolladas durante los cuatro
+m├│dulos del Curso de Especializaci├│n en Administraci├│n de Bases de Datos e Inteligencia de
+Negocios. Cada equipo deber├í identificar una problem├ítica real o un escenario organizacional
+suficientemente representativo, desarrollar un sistema de informaci├│n para recopilar y gestionar los
+datos operacionales, y construir una soluci├│n anal├¡tica que transforme dichos datos en informaci├│n ├║til
+para apoyar la toma de decisiones.
+SISTEMA DE CAPTURA ÔåÆ OLTP ÔåÆ ETL ÔåÆ DATA WAREHOUSE / DATA MART ÔåÆ
+AN├üLISIS ÔåÆ STREAMLIT/POWER BI ÔåÆ DECISIONES
+2. ALCANCE GENERAL
+El proyecto deber├í abarcar el ciclo completo del dato. No ser├í suficiente presentar ├║nicamente un
+dashboard, un conjunto de archivos CSV o una aplicaci├│n CRUD. La soluci├│n deber├í evidenciar c├│mo
+los datos son capturados, almacenados, administrados, integrados, transformados, analizados y
+presentados para responder preguntas de negocio.
+ÔÇó El proyecto podr├í desarrollarse en equipos de hasta tres estudiantes.
+ÔÇó Cada integrante deber├í conocer la arquitectura completa y demostrar participaci├│n t├®cnica durante
+la defensa.
+ÔÇó Se priorizar├ín problemas reales, institucionales, empresariales o sociales; tambi├®n podr├ín utilizarse
+escenarios simulados con suficiente complejidad.
+ÔÇó Los datos podr├ín combinar registros capturados por el sistema, datos hist├│ricos, datos abiertos y
+datos sint├®ticos, siempre que se documente su procedencia.
+3. DOMINIOS Y TEMAS SUGERIDOS
+Los equipos podr├ín proponer su propio tema. Como referencia, se sugieren los siguientes dominios:
+ÔÇó Gesti├│n acad├®mica y anal├¡tica de rendimiento estudiantil.
+ÔÇó Inventarios, compras, abastecimiento y rotaci├│n de productos.
+ÔÇó Ventas, clientes, rentabilidad y comportamiento comercial.
+ÔÇó Cl├¡nicas, citas, atenci├│n y demanda de servicios.
+ÔÇó Restaurantes, pedidos, productos y comportamiento por horarios.
+ÔÇó Recursos humanos, asistencia, desempe├▒o y ausentismo.
+ÔÇó Transporte, rutas, viajes y demanda.
+ÔÇó Bibliotecas, pr├®stamos, usuarios y recomendaciones.
+ÔÇó Mesa de ayuda, tickets, incidentes y cumplimiento de SLA.
+ÔÇó Mantenimiento de equipos, activos y ├│rdenes de trabajo.
+ÔÇó Comercio electr├│nico, pedidos, productos y comportamiento de clientes.
+ÔÇó Eventos acad├®micos, inscripciones, participaci├│n e intereses.
+ÔÇó Detecci├│n de relaciones, dependencias, fraude o recomendaciones mediante grafos.
+4. REQUISITOS FUNCIONALES Y TECNOL├ôGICOS M├ìNIMOS
+4.1 Sistema para recopilaci├│n y gesti├│n de informaci├│n
+Cada proyecto deber├í incluir una aplicaci├│n funcional que permita recopilar, registrar, modificar y
+consultar la informaci├│n operacional que alimentar├í posteriormente la soluci├│n anal├¡tica. La tecnolog├¡a
+de desarrollo del sistema ser├í de libre elecci├│n y deber├í ser justificada.
+Curso de Especializaci├│n 2026 | P├ígina 2
+
+=== PAGINA 3 ===
+UNIVERSIDAD DE EL SALVADOR - FACULTAD MULTIDISCIPLINARIA ORIENTAL
+ÔÇó Ejemplos: Java/Spring Boot, PHP/Laravel, Python/Django o Flask, Node.js, aplicaci├│n Android u
+otra tecnolog├¡a pertinente.
+ÔÇó La evaluaci├│n se centrar├í en la capacidad del sistema para generar y administrar datos de calidad,
+no en la complejidad visual del framework.
+ÔÇó El sistema deber├í implementar validaciones suficientes para proteger la integridad de la
+informaci├│n.
+4.2 Base de datos operacional en PostgreSQL
+PostgreSQL ser├í obligatorio como componente de almacenamiento relacional. Como m├¡nimo deber├í
+incluir:
+ÔÇó Modelo conceptual, l├│gico y f├¡sico de datos.
+ÔÇó Claves primarias y for├íneas, restricciones de dominio e integridad referencial.
+ÔÇó Normalizaci├│n y organizaci├│n mediante esquemas cuando sea pertinente.
+ÔÇó ├ìndices simples o compuestos debidamente justificados.
+ÔÇó Funciones, procedimientos o triggers cuando aporten valor al proceso.
+ÔÇó Usuarios, roles y permisos acordes al escenario.
+ÔÇó Estrategia de respaldo y restauraci├│n.
+ÔÇó Consultas relevantes para el proceso operacional.
+4.3 Optimizaci├│n y an├ílisis de rendimiento
+Se deber├ín seleccionar al menos dos consultas representativas y documentar su comportamiento antes
+y despu├®s de aplicar una estrategia de optimizaci├│n.
+ÔÇó Uso de EXPLAIN y/o EXPLAIN ANALYZE.
+ÔÇó Identificaci├│n del costo y operaciones relevantes del plan.
+ÔÇó Aplicaci├│n de ├¡ndices, reescritura de consultas u otra estrategia.
+ÔÇó Comparaci├│n e interpretaci├│n de resultados.
+4.4 Componente NoSQL
+MongoDB y Neo4j no deber├ín incorporarse artificialmente. El equipo deber├í analizar si el problema
+justifica el uso de una tecnolog├¡a NoSQL. Cuando aplique, deber├í utilizar al menos una de las
+siguientes:
+ÔÇó MongoDB: informaci├│n documental, semiestructurada, JSON, cat├ílogos variables, eventos, logs,
+comentarios u otros casos compatibles con el modelo documental.
+ÔÇó Neo4j: relaciones complejas, rutas, recomendaciones, dependencias, prerrequisitos, redes de
+usuarios, fraude u otros problemas donde el grafo aporte valor.
+4.5 Separaci├│n OLTP y OLAP
+La aplicaci├│n operacional y la soluci├│n de Inteligencia de Negocios deber├ín estar separadas
+conceptualmente. El dashboard no deber├í limitarse a consultar directamente las tablas transaccionales.
+BASE DE DATOS OPERACIONAL (OLTP) ÔåÆ ETL ÔåÆ DATA WAREHOUSE / DATA MART
+(OLAP) ÔåÆ STREAMLIT
+4.6 Data Warehouse o Data Mart
+La soluci├│n anal├¡tica deber├í implementar modelado dimensional. El equipo deber├í definir:
+ÔÇó Proceso de negocio analizado.
+Curso de Especializaci├│n 2026 | P├ígina 3
+
+=== PAGINA 4 ===
+UNIVERSIDAD DE EL SALVADOR - FACULTAD MULTIDISCIPLINARIA ORIENTAL
+ÔÇó Granularidad.
+ÔÇó Tabla o tablas de hechos.
+ÔÇó Dimensiones.
+ÔÇó Medidas.
+ÔÇó Esquema estrella o copo de nieve y justificaci├│n de la decisi├│n.
+ÔÇó Reglas para el tratamiento de dimensiones y datos hist├│ricos cuando corresponda.
+4.7 Proceso ETL con Python
+El proceso de extracci├│n, transformaci├│n y carga deber├í desarrollarse principalmente con Python y ser
+reproducible. No se considerar├í suficiente una importaci├│n manual de archivos.
+ÔÇó Extracci├│n desde PostgreSQL y, cuando aplique, MongoDB, Neo4j, archivos u otras fuentes.
+ÔÇó Limpieza, validaci├│n y tratamiento de valores faltantes o inconsistentes.
+ÔÇó Transformaci├│n e integraci├│n de fuentes.
+ÔÇó Carga del Data Warehouse o Data Mart.
+ÔÇó Registro b├ísico de errores o evidencias de ejecuci├│n.
+ÔÇó Librer├¡as sugeridas: pandas, SQLAlchemy, psycopg, pymongo, neo4j y otras justificadas.
+4.8 KPIs, m├®tricas y preguntas de negocio
+Antes de construir el dashboard, el equipo deber├í formular entre cinco y diez preguntas de negocio que
+la soluci├│n anal├¡tica pretende responder. Adem├ís, deber├í definir al menos cinco KPIs o indicadores
+relevantes.
+Cada KPI deber├í documentar: nombre, prop├│sito, f├│rmula o regla de c├ílculo, fuente de datos e
+interpretaci├│n para la toma de decisiones.
+4.9 Dashboard anal├¡tico con Streamlit o Power BI
+La presentaci├│n de resultados se realizar├í mediante una aplicaci├│n anal├¡tica desarrollada en Streamlit.
+El dashboard deber├í priorizar claridad, utilidad e interpretaci├│n sobre la cantidad de gr├íficos.
+ÔÇó Resumen ejecutivo con indicadores principales.
+ÔÇó Filtros por dimensiones relevantes.
+ÔÇó Visualizaciones apropiadas al tipo de dato.
+ÔÇó An├ílisis detallado y exploraci├│n de resultados.
+ÔÇó Interpretaci├│n de tendencias, problemas, relaciones o patrones.
+ÔÇó Conclusiones o recomendaciones orientadas a la toma de decisiones.
+5. ARQUITECTURA DE REFERENCIA
+La siguiente arquitectura representa una referencia. Podr├í modificarse si el equipo demuestra que otra
+arquitectura responde mejor al problema.
+1. Sistema de informaci├│n para captura de datos.
+2. PostgreSQL como base operacional principal.
+3. MongoDB y/o Neo4j cuando exista justificaci├│n.
+4. Python como capa de integraci├│n, limpieza y ETL.
+5. PostgreSQL como Data Warehouse/Data Mart u otra soluci├│n previamente autorizada.
+6. Streamlit/Power BI como capa anal├¡tica y de visualizaci├│n.
+7. KPIs, interpretaci├│n y recomendaciones para la toma de decisiones.
+No se evaluar├í positivamente la incorporaci├│n de tecnolog├¡as que no aporten valor al problema.
+Curso de Especializaci├│n 2026 | P├ígina 4
+
+=== PAGINA 5 ===
+UNIVERSIDAD DE EL SALVADOR - FACULTAD MULTIDISCIPLINARIA ORIENTAL
+6. ENTREGABLES DEL PROYECTO
+6.1 Producto tecnol├│gico
+1. Sistema funcional para recopilaci├│n y gesti├│n de informaci├│n.
+2. C├│digo fuente del sistema.
+3. Scripts de creaci├│n, configuraci├│n y carga de PostgreSQL.
+4. Scripts o archivos de MongoDB/Neo4j cuando correspondan.
+5. C├│digo del proceso ETL desarrollado en Python.
+6. Data Warehouse o Data Mart funcional.
+7. Aplicaci├│n Streamlit.
+8. Dataset de prueba o instrucciones reproducibles para obtener/generar los datos.
+9. Diagramas del modelo operacional y del modelo dimensional.
+10. Evidencias del an├ílisis y optimizaci├│n de consultas.
+11. Manual breve de instalaci├│n y ejecuci├│n.
+12. Repositorio Git con README, estructura organizada y control de versiones.
+6.2 Documento acad├®mico final
+El documento deber├í ajustarse al formato institucional aplicable al trabajo final del Curso de
+Especializaci├│n. Como estructura t├®cnica de referencia se propone:
+1. Portada.
+2. Resumen y palabras clave.
+3. Abstract y keywords.
+4. Introducci├│n.
+5. Planteamiento del problema.
+6. Objetivos.
+7. Marco conceptual y tecnol├│gico.
+8. Metodolog├¡a.
+9. An├ílisis y dise├▒o de la soluci├│n.
+10. Arquitectura de datos.
+11. Dise├▒o e implementaci├│n del sistema operacional.
+12. Dise├▒o e implementaci├│n de bases de datos.
+13. Proceso ETL e integraci├│n de datos.
+14. Modelo dimensional y Data Warehouse/Data Mart.
+15. Indicadores, an├ílisis y dashboard.
+16. Evaluaci├│n de rendimiento y optimizaci├│n.
+17. Resultados y discusi├│n.
+18. Conclusiones.
+19. Recomendaciones.
+20. Referencias bibliogr├íficas.
+21. Anexos.
+El c├│digo fuente completo no deber├í incluirse en el cuerpo del documento; deber├í mantenerse en el
+repositorio y utilizarse en anexos ├║nicamente cuando sea necesario para explicar aspectos t├®cnicos
+espec├¡ficos.
+Curso de Especializaci├│n 2026 | P├ígina 5
+
+=== PAGINA 6 ===
+UNIVERSIDAD DE EL SALVADOR - FACULTAD MULTIDISCIPLINARIA ORIENTAL
+7. CRITERIOS DE EVALUACI├ôN DE LA DEFENSA
+La defensa corresponde al 20% de la nota final del curso. Se propone evaluar la presentaci├│n y
+demostraci├│n del producto con la siguiente distribuci├│n:
+Criterio Descripci├│n Peso
+Presentaci├│n del problema y Claridad, s├¡ntesis y relaci├│n 15%
+soluci├│n entre problema, arquitectura y
+resultados.
+Demostraci├│n funcional Sistema de captura, datos, ETL, 25%
+DW/Data Mart y dashboard
+funcionando.
+Dominio t├®cnico Comprensi├│n de PostgreSQL, 25%
+NoSQL, Python, BI y
+decisiones de arquitectura.
+Interpretaci├│n de resultados Capacidad para explicar KPIs, 15%
+tendencias, hallazgos y
+decisiones.
+Respuestas a preguntas Precisi├│n, argumentaci├│n y 15%
+capacidad de justificar
+decisiones t├®cnicas.
+Presentaci├│n profesional Organizaci├│n, tiempo, material 5%
+visual y comunicaci├│n.
+8. CONDICIONES PARA LA DEFENSA
+ÔÇó Todos los integrantes deber├ín participar en la exposici├│n y demostraci├│n.
+ÔÇó El docente evaluador podr├í formular preguntas t├®cnicas individuales.
+ÔÇó Cualquier integrante podr├í ser consultado sobre cualquier componente de la arquitectura general.
+ÔÇó La demostraci├│n deber├í realizarse con el sistema funcional y con datos suficientes para evidenciar
+los an├ílisis.
+ÔÇó El equipo deber├í poder ejecutar o explicar el proceso ETL y demostrar el origen de los datos del
+dashboard.
+ÔÇó Las decisiones tecnol├│gicas deber├ín justificarse con criterios t├®cnicos y no ├║nicamente por
+familiaridad con una herramienta.
+9. RESTRICCIONES Y CONSIDERACIONES
+ÔÇó No se aceptar├í como proyecto final ├║nicamente un CRUD sin componente anal├¡tico.
+ÔÇó No se aceptar├í ├║nicamente un dashboard construido sobre un CSV sin sistema de recopilaci├│n ni
+proceso de integraci├│n.
+ÔÇó No se aceptar├í un dashboard que funcione solamente como consulta directa de las tablas
+transaccionales sin separaci├│n OLTP/OLAP.
+ÔÇó El uso de MongoDB o Neo4j deber├í responder a una necesidad del problema.
+ÔÇó Los datos sensibles o personales deber├ín anonimizarse o sustituirse por datos sint├®ticos cuando sea
+necesario.
+ÔÇó El proyecto deber├í poder reproducirse a partir del repositorio, scripts, dependencias e instrucciones
+entregadas.
+Curso de Especializaci├│n 2026 | P├ígina 6
+
+=== PAGINA 7 ===
+UNIVERSIDAD DE EL SALVADOR - FACULTAD MULTIDISCIPLINARIA ORIENTAL
+ÔÇó El plagio de c├│digo, documentaci├│n o resultados ser├í tratado conforme a la normativa universitaria
+aplicable.
+10. ORIENTACI├ôN PARA LA TOMA DE DECISIONES
+El producto final no deber├í limitarse a describir datos. El equipo deber├í interpretar los resultados y
+plantear recomendaciones. Como principio general, el sistema operacional permitir├í conocer y
+registrar lo que ocurre; la soluci├│n de Inteligencia de Negocios deber├í ayudar a comprender qu├®
+ocurri├│, c├│mo ha evolucionado, d├│nde existen problemas o tendencias y qu├® decisiones pueden
+adoptarse a partir de la evidencia.
+Curso de Especializaci├│n 2026 | P├ígina 7
+
