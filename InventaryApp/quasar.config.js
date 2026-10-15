@@ -11,6 +11,9 @@
 const { configure } = require("quasar/wrappers");
 const path = require("path");
 
+// URL del backend - fuente única de verdad
+const BACKEND_URL = 'https://maroon-ibex-276164.hostingersite.com';
+
 module.exports = configure(function (/* ctx */) {
   return {
     // https://v2.quasar.dev/quasar-cli-vite/prefetch-feature
@@ -40,6 +43,11 @@ module.exports = configure(function (/* ctx */) {
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#build
     build: {
+      // Expone BACKEND_URL al código del frontend como process.env.BACKEND_URL
+      env: {
+        BACKEND_URL: BACKEND_URL,
+      },
+
       target: {
         browser: ["es2019", "edge88", "firefox78", "chrome87", "safari13.1"],
         node: "node20",
@@ -95,6 +103,22 @@ module.exports = configure(function (/* ctx */) {
     devServer: {
       // https: true
       open: true, // opens browser window automatically
+      // Proxy: redirige las peticiones al backend en Hostinger
+      // El navegador cree que todo está en localhost -> NO hay CORS
+      proxy: {
+        '/api': {
+          target: BACKEND_URL,
+          changeOrigin: true,
+          secure: true,
+          cookieDomainRewrite: 'localhost',
+        },
+        '/sanctum': {
+          target: BACKEND_URL,
+          changeOrigin: true,
+          secure: true,
+          cookieDomainRewrite: 'localhost',
+        },
+      },
     },
 
     // https://v2.quasar.dev/quasar-cli-vite/quasar-config-js#framework

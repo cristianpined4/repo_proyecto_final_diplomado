@@ -2,13 +2,19 @@ import { boot } from "quasar/wrappers";
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "https://maroon-ibex-276164.hostingersite.com",
+  // En desarrollo: baseURL vacío -> las peticiones van por el proxy de Vite (localhost:9000)
+  // El proxy reenvía a Hostinger -> sin CORS
+  // En producción/Electron: URL del backend desde quasar.config.js (process.env.BACKEND_URL)
+  baseURL: process.env.DEV
+    ? ''
+    : process.env.BACKEND_URL,
   withCredentials: true, // Enviar cookies HttpOnly automáticamente
   headers: {
-    "Content-Type": "application/json",
-    Accept: "application/json",
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
   },
 });
+
 
 // Inicializar cabecera de sucursal si existe en localStorage
 const savedBranchId = localStorage.getItem('sucursal_activa_id');
