@@ -1,6 +1,7 @@
 ﻿<div align="center">
 
 # 🏭 Centro de Plásticos Limeño
+
 ## Arquitectura Integral de Datos e Inteligencia de Negocios
 
 [![Laravel](https://img.shields.io/badge/Laravel-11.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
@@ -17,11 +18,11 @@
 
 ## 👥 Integrantes del Equipo
 
-| Nombre | Carnet |
-|---|---|
+| Nombre                         | Carnet  |
+| ------------------------------ | ------- |
 | Cristian Alberto Pineda Blanco | PB20002 |
-| Andrés Isaí Vásquez Vásquez | VV18009 |
-| Luis Andrés Parada Barrero | PB19022 |
+| Andrés Isaí Vásquez Vásquez    | VV18009 |
+| Luis Andrés Parada Barrero     | PB19022 |
 
 ---
 
@@ -51,6 +52,7 @@ El Centro de Plásticos Limeño mantiene **tres años de historial operativo** e
 ## 🎓 Objetivos del Proyecto
 
 ### Objetivo General
+
 Diseñar e implementar una **arquitectura de datos integral** para Centro de Plásticos Limeño que abarque desde la captura de información mediante un sistema operacional web hasta una solución de Inteligencia de Negocios, utilizando procesos ETL, modelado dimensional y un dashboard interactivo para facilitar el análisis del comportamiento de productos, ventas, inventarios y rentabilidad.
 
 ### Objetivos Específicos
@@ -101,34 +103,35 @@ La solución abarca el **ciclo completo de los datos**:
 
 ## 🛠️ Marco Tecnológico
 
-| Capa | Tecnología | Rol |
-|---|---|---|
-| **Frontend** | Vue.js 3 + Quasar | Interfaz de usuario, POS, facturación |
-| **Backend** | PHP / Laravel 11 | Lógica de negocio, API REST |
-| **Base de datos OLTP** | PostgreSQL | Almacén transaccional normalizado |
-| **ETL** | Python | Extracción, transformación y carga |
-| **Data Warehouse** | PostgreSQL (dimensional) | Modelo estrella/copo de nieve |
-| **Dashboard BI** | Streamlit / Power BI | Visualización de KPIs e indicadores |
+| Capa                   | Tecnología               | Rol                                   |
+| ---------------------- | ------------------------ | ------------------------------------- |
+| **Frontend**           | Vue.js 3 + Quasar        | Interfaz de usuario, POS, facturación |
+| **Backend**            | PHP / Laravel 11         | Lógica de negocio, API REST           |
+| **Base de datos OLTP** | PostgreSQL               | Almacén transaccional normalizado     |
+| **ETL**                | Python                   | Extracción, transformación y carga    |
+| **Data Warehouse**     | PostgreSQL (dimensional) | Modelo estrella/copo de nieve         |
+| **Dashboard BI**       | Streamlit / Power BI     | Visualización de KPIs e indicadores   |
 
 ---
 
 ## 📊 Componente 1 — Sistema OLTP (InventaryApp)
 
 ### Descripción
+
 Sistema web transaccional que centraliza la recopilación, validación y almacenamiento de las operaciones comerciales de la empresa.
 
 ### Módulos Implementados
 
-| Módulo | Descripción |
-|---|---|
-| **Ventas (POS)** | Punto de venta con cálculo de IVA, métodos de pago y tickets térmicos |
-| **Compras** | Registro de compras a proveedores con actualización automática de inventario |
-| **Inventario / Kardex** | Control de stock por sucursal con trazabilidad completa de movimientos |
-| **Productos** | Catálogo con categorías, subcategorías, marcas, modelos e imágenes |
-| **Clientes / Proveedores** | Gestión con validación de NIT/NRC/correo |
-| **Usuarios y Roles** | Control de acceso (Administrador, Gerente, Vendedor, Bodeguero) |
-| **Reportes** | Análisis básico de ventas, compras e inventario |
-| **Configuración** | IVA, empresa, moneda, series y correlativos parametrizables |
+| Módulo                     | Descripción                                                                  |
+| -------------------------- | ---------------------------------------------------------------------------- |
+| **Ventas (POS)**           | Punto de venta con cálculo de IVA, métodos de pago y tickets térmicos        |
+| **Compras**                | Registro de compras a proveedores con actualización automática de inventario |
+| **Inventario / Kardex**    | Control de stock por sucursal con trazabilidad completa de movimientos       |
+| **Productos**              | Catálogo con categorías, subcategorías, marcas, modelos e imágenes           |
+| **Clientes / Proveedores** | Gestión con validación de NIT/NRC/correo                                     |
+| **Usuarios y Roles**       | Control de acceso (Administrador, Gerente, Vendedor, Bodeguero)              |
+| **Reportes**               | Análisis básico de ventas, compras e inventario                              |
+| **Configuración**          | IVA, empresa, moneda, series y correlativos parametrizables                  |
 
 ### Stack del Sistema OLTP
 
@@ -197,11 +200,13 @@ Tablas operativas         Cálculo de costos             (Modelo Dimensional)
 ```
 
 ### Tablas de Hechos
+
 - `fact_ventas` — Unidades vendidas, ingresos, costo, margen bruto
 - `fact_compras` — Unidades adquiridas, costos por proveedor
 - `fact_inventario` — Niveles de stock, rotación
 
 ### Dimensiones
+
 - `dim_tiempo` — Año, trimestre, mes, día
 - `dim_producto` — Nombre, categoría, subcategoría, unidad de medida
 - `dim_proveedor` — Nombre, origen, tipo
@@ -213,15 +218,16 @@ Tablas operativas         Cálculo de costos             (Modelo Dimensional)
 
 ### KPIs Principales
 
-| Indicador | Descripción |
-|---|---|
-| **Margen Bruto** | Ganancia real tras descontar costos variables por producto/período |
-| **Rotación de Inventario** | Dinámica de movimiento por categoría (desechables vs. artículos para el hogar) |
-| **Concentración de Ingresos** | Qué categorías aportan el mayor flujo de efectivo |
-| **Evolución de Costos** | Impacto del precio del petróleo y fletes en el costo de adquisición |
-| **Volumen de Ventas** | Unidades vendidas por producto, categoría y período |
+| Indicador                     | Descripción                                                                    |
+| ----------------------------- | ------------------------------------------------------------------------------ |
+| **Margen Bruto**              | Ganancia real tras descontar costos variables por producto/período             |
+| **Rotación de Inventario**    | Dinámica de movimiento por categoría (desechables vs. artículos para el hogar) |
+| **Concentración de Ingresos** | Qué categorías aportan el mayor flujo de efectivo                              |
+| **Evolución de Costos**       | Impacto del precio del petróleo y fletes en el costo de adquisición            |
+| **Volumen de Ventas**         | Unidades vendidas por producto, categoría y período                            |
 
 ### Dimensiones de Análisis
+
 - 📅 **Temporal**: día, mes, trimestre, año
 - 🏷️ **Producto**: artículo individual, subcategoría, categoría
 - 🤝 **Proveedor**: por origen y tipo de proveedor
@@ -324,8 +330,8 @@ python etl_main.py           # Ejecutar el proceso ETL
 
 ## 🔑 Credenciales por Defecto
 
-| Usuario | Contraseña | Rol |
-|---|---|---|
+| Usuario           | Contraseña | Rol           |
+| ----------------- | ---------- | ------------- |
 | `admin@admin.com` | `password` | Administrador |
 
 > ⚠️ **Cambiar las credenciales antes de poner en producción.**
@@ -335,6 +341,7 @@ python etl_main.py           # Ejecutar el proceso ETL
 ## 📐 Principios de Diseño
 
 ### Sistema OLTP
+
 - **Paginación y búsqueda 100% server-side** — Optimizado para +100,000 registros
 - **Inventario por sucursal** — No existe stock global; todo pertenece a una sucursal
 - **Trazabilidad total** — Todo movimiento genera registro en el kardex
@@ -342,6 +349,7 @@ python etl_main.py           # Ejecutar el proceso ETL
 - **Índices compuestos** — Para búsquedas de alta frecuencia en productos, clientes y proveedores
 
 ### Data Warehouse
+
 - **Separación OLTP/OLAP** — La carga analítica no impacta el sistema transaccional
 - **Modelo dimensional (estrella)** — Consultas analíticas rápidas sobre histórico
 - **ETL automatizable** — Actualización en horarios de baja actividad
@@ -351,11 +359,11 @@ python etl_main.py           # Ejecutar el proceso ETL
 
 ## 📄 Documentación del Proyecto
 
-| Archivo | Descripción |
-|---|---|
+| Archivo                                                                | Descripción                                          |
+| ---------------------------------------------------------------------- | ---------------------------------------------------- |
 | [`Lineamientos_Proyecto_Final.pdf`](./Lineamientos_Proyecto_Final.pdf) | Requerimientos y lineamientos oficiales del proyecto |
-| [`tarealimeño.sql`](./tarealimeño.sql) | Script SQL base de la base de datos operacional |
-| [`pdf_text.txt`](./pdf_text.txt) | Extracción de texto del documento de lineamientos |
+| [`tarealimeño.sql`](./tarealimeño.sql)                                 | Script SQL base de la base de datos operacional      |
+| [`pdf_text.txt`](./pdf_text.txt)                                       | Extracción de texto del documento de lineamientos    |
 
 ---
 
@@ -382,6 +390,6 @@ python etl_main.py           # Ejecutar el proceso ETL
 
 <div align="center">
 
-*Desarrollado con ❤️ por el equipo PB20002 · VV18009 · PB19022 — UES 2025*
+_Desarrollado con ❤️ por el equipo PB20002 · VV18009 · PB19022 — UES 2026_
 
 </div>
