@@ -330,9 +330,9 @@ python etl_main.py           # Ejecutar el proceso ETL
 
 ## 🔑 Credenciales por Defecto
 
-| Usuario           | Contraseña | Rol           |
-| ----------------- | ---------- | ------------- |
-| `admin@admin.com` | `password` | Administrador |
+| Usuario | Contraseña | Rol           |
+| ------- | ---------- | ------------- |
+| `admin` | `admin`    | Administrador |
 
 > ⚠️ **Cambiar las credenciales antes de poner en producción.**
 
