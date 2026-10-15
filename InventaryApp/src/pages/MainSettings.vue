@@ -513,7 +513,7 @@ export default {
         this.settingsRaw.forEach((setting) => {
           if (setting.key === "empresa_logo" && setting.value) {
             this.globalLogoUrl =
-              "http://localhost:8000/storage/" + setting.value;
+              (process.env.BACKEND_URL || "").replace(/\/$/, "") + "/storage/" + setting.value;
           }
           if (this.form.hasOwnProperty(setting.key)) {
             if (setting.key === "iva_enabled") {
@@ -585,7 +585,7 @@ export default {
             "success"
           );
           this.globalLogoUrl =
-            "http://localhost:8000/storage/" + res.data.logo_path;
+           (process.env.BACKEND_URL || "").replace(/\/$/, "") + "storage/" + res.data.logo_path;
           this.logoFile = null;
 
           // Refresh the public settings cache in settingsStore

@@ -19,7 +19,7 @@ export const useSettingsStore = defineStore('settings', {
           companyName = nameSetting.value;
         }
         if (logoSetting && logoSetting.value) {
-          companyLogo = 'http://localhost:8000/storage/' + logoSetting.value;
+          companyLogo = (process.env.BACKEND_URL || "").replace(/\/$/, "") + "/storage/" + logoSetting.value;
         }
         if (methodSetting && methodSetting.value) {
           valuationMethod = methodSetting.value;
@@ -73,7 +73,7 @@ export const useSettingsStore = defineStore('settings', {
           this.companyName = 'Inventary App';
         }
         if (logoSetting && logoSetting.value) {
-          this.companyLogo = 'http://localhost:8000/storage/' + logoSetting.value;
+          this.companyLogo = (process.env.BACKEND_URL || "").replace(/\/$/, "") + "/storage/" + logoSetting.value;
         } else {
           this.companyLogo = '';
         }
