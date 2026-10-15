@@ -1,17 +1,26 @@
 import { boot } from "quasar/wrappers";
 import axios from "axios";
 
+// URL del backend configurada exclusivamente en quasar.config.js
+const BACKEND_URL = (process.env.BACKEND_URL || "").replace(/\/$/, "");
+
+// Detectar si estamos en Electron (sea dev o compilado para escritorio)
+const isElectron =
+  process.env.MODE === "electron" ||
+  (typeof window !== "undefined" &&
+    (window.process?.type === "renderer" ||
+      navigator.userAgent.toLowerCase().includes("electron")));
+
+// En desarrollo web (navegador) se usa '' para pasar por el proxy de Vite.
+// En Electron y en producción se usa SIEMPRE la URL completa del backend.
+const resolvedBaseURL = process.env.DEV && !isElectron ? "" : BACKEND_URL;
+
 const api = axios.create({
-  // En desarrollo: baseURL vacío -> las peticiones van por el proxy de Vite (localhost:9000)
-  // El proxy reenvía a Hostinger -> sin CORS
-  // En producción/Electron: URL del backend desde quasar.config.js (process.env.BACKEND_URL)
-  baseURL: process.env.DEV
-    ? ''
-    : process.env.BACKEND_URL,
+  baseURL: resolvedBaseURL,
   withCredentials: true, // Enviar cookies HttpOnly automáticamente
   headers: {
-    'Content-Type': 'application/json',
-    Accept: 'application/json',
+    "Content-Type": "application/json",
+    Accept: "application/json",
   },
 });
 

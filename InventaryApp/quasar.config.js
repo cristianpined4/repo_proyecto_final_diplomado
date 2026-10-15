@@ -202,7 +202,12 @@ module.exports = configure(function (/* ctx */) {
 
     // Full list of options: https://v2.quasar.dev/quasar-cli-vite/developing-electron-apps/configuring-electron
     electron: {
-      // extendElectronMainConf (esbuildConf)
+      extendElectronMainConf (esbuildConf) {
+        esbuildConf.define = {
+          ...esbuildConf.define,
+          'process.env.BACKEND_URL': JSON.stringify(BACKEND_URL),
+        };
+      },
       // extendElectronPreloadConf (esbuildConf)
 
       // specify the debugging port to use for the Electron app when running in development mode
