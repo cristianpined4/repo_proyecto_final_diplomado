@@ -2,7 +2,7 @@ import { boot } from "quasar/wrappers";
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:8000",
+  baseURL: "https://maroon-ibex-276164.hostingersite.com",
   withCredentials: true, // Enviar cookies HttpOnly automáticamente
   headers: {
     "Content-Type": "application/json",
