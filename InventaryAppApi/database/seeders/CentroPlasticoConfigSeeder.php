@@ -134,8 +134,8 @@ class CentroPlasticoConfigSeeder extends Seeder
         $usuarios = [
             [
                 'username' => 'admin',
-                'name' => 'Cristian',
-                'lastname' => 'Pineda',
+                'name' => 'Administrador',
+                'lastname' => 'Sistema',
                 'password' => 'admin',
                 'email' => 'admin@plasticosellimeno.com',
                 'phone' => '7123-4567',
