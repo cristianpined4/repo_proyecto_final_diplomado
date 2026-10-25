@@ -1,0 +1,31 @@
+services:
+  dw_postgres:
+    image: postgres:16-alpine
+    container_name: dw_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-inventory_dw}
+      POSTGRES_USER: ${POSTGRES_USER:-dw_admin}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-dw_secure_password_2026}
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "${POSTGRES_PORT:-5433}:5432"
+    volumes:
+      - dw_postgres_data:/var/lib/postgresql/data
+      - ./sql:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-dw_admin} -d ${POSTGRES_DB:-inventory_dw}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - dw_network
+
+volumes:
+  dw_postgres_data:
+    driver: local
+
+networks:
+  dw_network:
+    driver: bridge
