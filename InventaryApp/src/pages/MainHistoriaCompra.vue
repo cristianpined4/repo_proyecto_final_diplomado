@@ -220,7 +220,7 @@
 
         <template v-slot:body-cell-subtotal="props">
           <q-td align="right">
-            <span class="text-weight-medium text-grey-9">
+            <span>
               ${{ formatCurrency(props.row.subtotal != null ? props.row.subtotal : (props.row.total_compra ? Number(props.row.total_compra) / 1.13 : 0)) }}
             </span>
           </q-td>
@@ -228,7 +228,7 @@
 
         <template v-slot:body-cell-monto_iva="props">
           <q-td align="right">
-            <span class="text-weight-medium text-grey-8">
+            <span>
               ${{ formatCurrency(props.row.monto_iva != null ? props.row.monto_iva : (props.row.total_compra ? Number(props.row.total_compra) - (Number(props.row.total_compra) / 1.13) : 0)) }}
             </span>
           </q-td>
@@ -236,7 +236,7 @@
 
         <template v-slot:body-cell-total_compra="props">
           <q-td align="right">
-            <span class="text-weight-bold text-dark text-subtitle2">
+            <span class="text-weight-bold text-subtitle2">
               ${{ formatCurrency(props.row.total_compra) }}
             </span>
           </q-td>

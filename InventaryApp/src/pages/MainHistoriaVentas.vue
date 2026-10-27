@@ -249,7 +249,7 @@
 
         <template v-slot:body-cell-total_venta="props">
           <q-td align="right">
-            <span class="text-weight-bold text-dark text-subtitle2">
+            <span class="text-weight-bold text-subtitle2">
               ${{ formatCurrency(props.row.total_venta) }}
             </span>
           </q-td>
