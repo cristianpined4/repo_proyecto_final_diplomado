@@ -295,8 +295,6 @@ settings           -- Configuración parametrizada
 audit_logs         -- Auditoría del sistema
 ```
 
-El script SQL base se encuentra en [`tarealimeño.sql`](./tarealimeño.sql).
-
 ---
 
 ## 🚀 Instalación del Sistema OLTP
@@ -410,17 +408,6 @@ La plataforma estará disponible en el navegador en `http://localhost:8501`.
 - **No aditividad** — Recálculo estricto de márgenes y razones sobre sumatorias atómicas
 - **Navegación nativa** — `st.navigation` organizada en 3 macro-secciones y 8 módulos ejecutivos
 - **Filtros globales persistentes** — Sincronización en tiempo real vía `st.session_state`
-
----
-
-## 📄 Documentación del Proyecto
-
-| Archivo                                                                | Descripción                                          |
-| ---------------------------------------------------------------------- | ---------------------------------------------------- |
-| [`Dashboards/README.md`](./Dashboards/README.md)                       | Manual técnico y operativo de la plataforma de Dashboards BI en Streamlit |
-| [`Lineamientos_Proyecto_Final.pdf`](./Lineamientos_Proyecto_Final.pdf) | Requerimientos y lineamientos oficiales del proyecto |
-| [`tarealimeño.sql`](./tarealimeño.sql)                                 | Script SQL base de la base de datos operacional      |
-| [`pdf_text.txt`](./pdf_text.txt)                                       | Extracción de texto del documento de lineamientos    |
 
 ---
 
