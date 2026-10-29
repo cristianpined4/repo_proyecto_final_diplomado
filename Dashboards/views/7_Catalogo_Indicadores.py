@@ -20,6 +20,7 @@ from styles import (
     apply_global_styles,
     render_banner,
     render_diagnostic,
+    render_indicator_meta_card,
     format_bold_markdown
 )
 
@@ -123,13 +124,13 @@ with tab_fichas:
         
         c1, c2, c3, c4 = st.columns(4)
         with c1:
-            st.metric("Área Responsable", "Dirección Financiera")
+            render_indicator_meta_card("Área Responsable", "Dirección Financiera", "corporate_fare")
         with c2:
-            st.metric("Frecuencia de Corte", "Mensual / Cierre Contable")
+            render_indicator_meta_card("Frecuencia de Corte", "Mensual / Cierre Contable", "calendar_today")
         with c3:
-            st.metric("Meta Institucional", "Margen ≥ 22.00%")
+            render_indicator_meta_card("Meta Institucional", "Margen ≥ 22.00%", "flag")
         with c4:
-            st.metric("Valor Histórico Verificado", "23.17% Margen")
+            render_indicator_meta_card("Valor Histórico Verificado", "23.17% Margen", "verified")
 
         col_det1, col_det2 = st.columns(2)
         with col_det1:
@@ -207,13 +208,13 @@ with tab_fichas:
         
         c1, c2, c3, c4 = st.columns(4)
         with c1:
-            st.metric("Área Responsable", "Jefaturas de Sucursal")
+            render_indicator_meta_card("Área Responsable", "Jefaturas de Sucursal", "store")
         with c2:
-            st.metric("Puntos de Venta", "3 Sucursales Físicas")
+            render_indicator_meta_card("Puntos de Venta", "3 Sucursales Físicas", "storefront")
         with c3:
-            st.metric("Líder en Facturación", "Usulután ($1.63M)")
+            render_indicator_meta_card("Líder en Facturación", "Usulután ($1.63M)", "leaderboard")
         with c4:
-            st.metric("Líder en Rentabilidad", "Matriz Centro (26.80%)")
+            render_indicator_meta_card("Líder en Rentabilidad", "Matriz Centro (26.80%)", "trending_up")
 
         st.markdown("#### Formulación Matemática Institucional:")
         
@@ -248,13 +249,13 @@ with tab_fichas:
         
         c1, c2, c3, c4 = st.columns(4)
         with c1:
-            st.metric("Área Responsable", "Jefatura de Bodega")
+            render_indicator_meta_card("Área Responsable", "Jefatura de Bodega", "warehouse")
         with c2:
-            st.metric("Frecuencia de Revisión", "Diaria / Por Turno")
+            render_indicator_meta_card("Frecuencia de Revisión", "Diaria / Por Turno", "update")
         with c3:
-            st.metric("Umbral de Seguridad", "< 15 Unidades Físicas")
+            render_indicator_meta_card("Umbral de Seguridad", "< 15 Unidades Físicas", "warning")
         with c4:
-            st.metric("Artículos en Alerta", "16 SKUs Críticos")
+            render_indicator_meta_card("Artículos en Alerta", "16 SKUs Críticos", "report_problem")
 
         st.markdown("#### Formulación Matemática Institucional:")
         
@@ -282,13 +283,13 @@ with tab_fichas:
         
         c1, c2, c3, c4 = st.columns(4)
         with c1:
-            st.metric("Área Responsable", "Gestión de Categorías / Compras")
+            render_indicator_meta_card("Área Responsable", "Gestión de Categorías / Compras", "category")
         with c2:
-            st.metric("Frecuencia de Corte", "Mensual")
+            render_indicator_meta_card("Frecuencia de Corte", "Mensual", "event")
         with c3:
-            st.metric("Categoría Líder Ventas", "Bolsas Plásticas")
+            render_indicator_meta_card("Categoría Líder Ventas", "Bolsas Plásticas", "shopping_bag")
         with c4:
-            st.metric("Categoría Líder Margen", "Desechables (27.4%)")
+            render_indicator_meta_card("Categoría Líder Margen", "Desechables (27.4%)", "percent")
 
         st.markdown("#### Formulación Matemática Institucional:")
         
@@ -319,13 +320,13 @@ with tab_fichas:
         
         c1, c2, c3, c4 = st.columns(4)
         with c1:
-            st.metric("Área Responsable", "Jefatura de Logística")
+            render_indicator_meta_card("Área Responsable", "Jefatura de Logística", "local_shipping")
         with c2:
-            st.metric("Periodicidad", "Mensual / Trimestral")
+            render_indicator_meta_card("Periodicidad", "Mensual / Trimestral", "schedule")
         with c3:
-            st.metric("Rotación Promedio", "3.12 Veces al Año")
+            render_indicator_meta_card("Rotación Promedio", "3.12 Veces al Año", "sync")
         with c4:
-            st.metric("DSI Promedio", "116.9 Días")
+            render_indicator_meta_card("DSI Promedio", "116.9 Días", "hourglass_top")
 
         st.markdown("#### Formulación Matemática Institucional:")
         
@@ -357,13 +358,13 @@ with tab_fichas:
         
         c1, c2, c3, c4 = st.columns(4)
         with c1:
-            st.metric("Área Responsable", "Contabilidad General")
+            render_indicator_meta_card("Área Responsable", "Contabilidad General", "receipt_long")
         with c2:
-            st.metric("Régimen Fiscal", "El Salvador (IVA 13%)")
+            render_indicator_meta_card("Régimen Fiscal", "El Salvador (IVA 13%)", "account_balance")
         with c3:
-            st.metric("IVA Débito Generado", "$376,648.51")
+            render_indicator_meta_card("IVA Débito Generado", "$376,648.51", "arrow_upward")
         with c4:
-            st.metric("IVA Crédito Soportado", "$289,886.72")
+            render_indicator_meta_card("IVA Crédito Soportado", "$289,886.72", "arrow_downward")
 
         st.markdown("#### Formulación Matemática Institucional:")
         
@@ -395,13 +396,13 @@ with tab_fichas:
         
         c1, c2, c3, c4 = st.columns(4)
         with c1:
-            st.metric("Área Responsable", "Jefatura de Abastecimiento")
+            render_indicator_meta_card("Área Responsable", "Jefatura de Abastecimiento", "inventory")
         with c2:
-            st.metric("Cartera de Fabricantes", "8 Proveedores Clave")
+            render_indicator_meta_card("Cartera de Fabricantes", "8 Proveedores Clave", "group")
         with c3:
-            st.metric("Proveedor Principal", "Plásticos de El Salvador")
+            render_indicator_meta_card("Proveedor Principal", "Plásticos de El Salvador", "star")
         with c4:
-            st.metric("Gasto Total Acumulado", "$2,519,784.60")
+            render_indicator_meta_card("Gasto Total Acumulado", "$2,519,784.60", "payments")
 
         st.markdown("#### Formulación Matemática Institucional:")
         

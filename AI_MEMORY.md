@@ -148,6 +148,7 @@
 | FASE 4: Proceso ETL en Python | COMPLETADO Y VERIFICADO | Pipeline modular `ProcesoETL/` (extract, transform, load, config). |
 | FASE 5: Integración y Carga de Datos | COMPLETADO Y VERIFICADO | Extracción de 15 tablas OLTP, transformación y carga completa al DW. |
 | FASE 6: Validación Final | COMPLETADO Y VERIFICADO | 5 pruebas pytest pasadas, vistas analíticas validadas con queries directas. |
+| FASE 7: Plataforma de Dashboards BI (Streamlit) | COMPLETADO Y VERIFICADO | 8 vistas ejecutivas interactivas en `Dashboards/` con filtros multidimensionales, CMI, control de stock y balance de IVA. |
 | Restricción: No modificar Frontend/Backend | COMPLETADO Y VERIFICADO | Cero archivos modificados en `InventaryApp/` e `InventaryAppApi/`. |
 
 ---
@@ -156,3 +157,97 @@
 
 Para una explicación exhaustiva con la taxonomía del Módulo IV Unidad 7 (Parmenter, Kaplan & Norton, Doran SMART, análisis de aditividad y efectos perversos), fórmulas matemáticas y desglose línea por línea del código, consultar:
 - [DataWareHouse/DOCUMENTACION_TECNICA_DETALLADA.md](file:///c:/Users/user/Desktop/repo_proyecto_final_diplomado/DataWareHouse/DOCUMENTACION_TECNICA_DETALLADA.md)
+
+---
+
+## 10. Plataforma de Inteligencia de Negocios y Dashboards (Streamlit)
+
+### 10.1 Arquitectura de la Plataforma (`Dashboards/`)
+Se desarrolló una solución de Business Intelligence de nivel ejecutivo alojada en `Dashboards/`, desacoplada del aplicativo transaccional y conectada directamente al Data Warehouse en PostgreSQL.
+
+- **Punto de Entrada (`Dashboards/app.py`)**:
+  - Arquitectura multipágina basada en un menú lateral persistente (`st.sidebar.radio`) conectado a `st.session_state["nav_view"]`.
+  - Eliminación de parpadeos y renderizado inconsistente mediante gestión de estado centralizada.
+  - Barra superior ejecutiva con estado de sincronización de datos y resumen de indicadores globales.
+
+- **Capa de Conexión y Rendimiento (`Dashboards/db.py`)**:
+  - Conexión vía SQLAlchemy al contenedor del Data Warehouse (`localhost:5433/inventory_dw`).
+  - Implementación de caché analítico (`@st.cache_data(ttl=600)`) con invalidación manual.
+  - Funciones de consulta optimizadas para cálculo de métricas financieras, series temporales a nivel diario y mensual, rentabilidad por SKU, alertas de inventario y balances fiscales.
+
+- **Sistema de Diseño e Identidad Visual (`Dashboards/styles.py`)**:
+  - **Identidad Corporativa**: Estética ejecutiva sobria en modo oscuro/slate (`#0B0F19`, `#111827`, `#00D2FF`, `#10B981`, `#EF4444`). Se eliminaron todas las etiquetas y menciones automáticas tipo *"AI Suite"* o *"Generado por IA"*, adaptando el producto como software empresarial de Centro de Plásticos El Limeño.
+  - **Tipografía e Iconografía**: Integración de la fuente *Plus Jakarta Sans* y la librería de glifos *Google Material Symbols*.
+  - **Componentes Reutilizables**:
+    - `render_banner()`: Encabezados ejecutivos con píldora de estado en vivo.
+    - `render_kpi_card()`: Tarjetas analíticas con bandas cromáticas, indicadores de variación (delta) y etiquetas.
+    - `render_diagnostic()`: Cajas de síntesis estratégica con iconos de contexto.
+    - `render_indicator_meta_card()`: Tarjetas para metadatos de gobernanza con diseño responsivo que previene truncamiento con puntos suspensivos (`...`).
+  - **Procesamiento de Texto**: Función `format_bold_markdown()` para transformar sintaxis markdown (`**texto**`) en etiquetas HTML reales (`<strong>`), eliminando asteriscos visibles en pantalla.
+  - **Localización Completa al Español**:
+    - Mapeo institucional `MESES_ES_CORTO` (`Ene`, `Feb`, ..., `Dic`) y `MESES_ES_COMPLETO`.
+    - Función de formato `format_mes_anio()`.
+    - Configuración en gráficos de Plotly (`xaxis=dict(type="category")`) para evitar que motores de renderizado D3 apliquen formatos en inglés (`Jan`, `Apr`, etc.).
+  - **Reglas CSS Anti-Truncamiento**:
+    - Anulación global de elipsis en métricas de Streamlit (`div[data-testid="stMetricValue"]` y `div[data-testid="stMetricLabel"]`), asegurando lectura íntegra en pantallas de cualquier resolución.
+
+- **Motor de Filtros Multidimensionales (`Dashboards/filters.py`)**:
+  - **Filtro de Puntos de Venta**: Multiselección para Usulután, Matriz Centro y Metrocentro.
+  - **Filtro Temporal Dinámico**:
+    - Presets rápidos: Histórico Completo, Ejercicios Anuales (2024, 2025, 2026), Ventanas Móviles (Últimos 30, 90 y 180 días).
+    - Rango personalizado con selectores de fecha (`date_input`).
+  - **Filtros por Dimensión**: Categorías de catálogo, Años fiscales, Meses (en español: Enero a Diciembre) y Proveedores estratégicos.
+  - Contador de transacciones activas según los filtros aplicados y botón de reseteo rápido.
+
+---
+
+### 10.2 Vistas Analíticas Implementadas (`Dashboards/views/`)
+
+1. **`0_Inicio.py` — Resumen Operacional y Ejecutivo**:
+   - 8 tarjetas KPI globales: Facturación Bruta, Margen Ponderado, Utilidad Neta, Transacciones, Unidades Despachadas, IVA Débito, Stock en Riesgo y Capital en Bodega.
+   - Gráfico interactivo de tendencia temporal: Conmutación automática entre vista diaria ($\le 45$ días) y mensual, con fechas y meses localizados al español.
+   - Donut de distribución de ingresos (Costo de Mercancía COGS vs. Margen Neto).
+   - Comparativas horizontales de ingresos y ticket promedio por punto de venta.
+
+2. **`1_Resumen_Ejecutivo_CMI.py` — Cuadro de Mando Integral (Balanced Scorecard)**:
+   - Alineación según la metodología de Robert Kaplan y David Norton.
+   - Evaluación en 4 perspectivas: Financiera, Clientes, Procesos Internos, y Aprendizaje y Crecimiento.
+   - Definición de objetivos SMART (Doran), semaforización de metas institucionales y matriz de relaciones causa-efecto.
+
+3. **`2_Rendimiento_Sucursales.py` — Rendimiento y Comparativa de Puntos de Venta**:
+   - Matriz de dispersión/burbujas: Ticket promedio vs. volumen transaccional vs. volumen de ingresos.
+   - Gráfico de barras apiladas: Desglose de base imponible entre costo de mercancía y utilidad neta por sucursal.
+   - Análisis de volumen físico despachado por cada tienda.
+
+4. **`3_Rentabilidad_Productos.py` — Rentabilidad por Categoría y Análisis ABC**:
+   - Matriz de dispersión: Margen comercial (%) frente a ventas netas ($).
+   - Curva de Pareto y Clasificación ABC (Regla 80/20): Gráfico combinado de barras y línea acumulada porcentual.
+   - Rankings de productos más y menos rentables para apoyo a decisiones de surtido.
+
+5. **`4_Inventario_y_Alertas.py` — Monitoreo Preventivo de Stock y DSI**:
+   - Detección temprana de quiebres de góndola bajo el umbral preventivo de 15 unidades físicas.
+   - Matriz de artículos críticos por sucursal y categoría.
+   - Indicadores de Rotación de Inventario y Días de Inventario en Bodega (DSI).
+
+6. **`5_Compras_y_Proveedores.py` — Gestión de Compras y Proveedores**:
+   - Evaluación de concentración de compras por fabricante y distribuidor.
+   - Gráfico de barras horizontal con el Top 15 de proveedores por monto facturado.
+   - Donut de dependencia: Cuota de los 10 principales proveedores frente al resto de la cartera.
+
+7. **`6_Balance_IVA_Fiscal.py` — Balance y Liquidación Mensual de IVA**:
+   - Auditoría fiscal de IVA Débito (13% en ventas) vs. IVA Crédito (13% en compras formales).
+   - Gráfico comparativo mensual con nombres de meses en español y balance neto a pagar / remanente a favor.
+   - Libro tabular de cuadratura tributaria mensual.
+
+8. **`7_Catalogo_Indicadores.py` — Glosario y Diccionario de Métricas**:
+   - Compendio de gobernanza con 7 Fichas Técnicas normalizadas (`MET-FIN-01` a `MET-ABAS-07`).
+   - Formulación matemática rigurosa en notación LaTeX (sin SQL crudo incrustado).
+   - Metadatos institucionales (Áreas responsables, metas, frecuencias) presentados en tarjetas `render_indicator_meta_card` sin truncamiento de texto.
+   - Matriz maestra de control de métricas y Procedimiento Operativo Estandarizado (POE) para cierres contables y auditoría interna.
+
+---
+
+### 10.3 Cumplimiento de Estándares Técnicos
+- **Sintaxis Streamlit**: Se reemplazó el parámetro obsoleto `use_container_width=True` por `width="stretch"` en todas las tablas y gráficos interactivos.
+- **Rendimiento**: Ejecución fluida sin bloqueos gracias al desacoplamiento entre capa de cálculo (`Dashboards/db.py`) y capa de presentación (`Dashboards/views/`).
+- **Aislamiento**: Cero modificaciones en las carpetas operacionales del aplicativo web original (`InventaryApp/` e `InventaryAppApi/`).

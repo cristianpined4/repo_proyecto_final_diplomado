@@ -19,6 +19,22 @@ COLOR_DANGER = "#EF4444"       # Coral Alerta / Quiebre
 COLOR_MUTED = "#64748B"        # Texto secundario
 COLOR_TEXT = "#F8FAFC"         # Texto principal
 
+# Nombres de meses en español para gráficos y reportes
+MESES_ES_CORTO = {
+    1: "Ene", 2: "Feb", 3: "Mar", 4: "Abr", 5: "May", 6: "Jun",
+    7: "Jul", 8: "Ago", 9: "Sep", 10: "Oct", 11: "Nov", 12: "Dic"
+}
+
+MESES_ES_COMPLETO = {
+    1: "Enero", 2: "Febrero", 3: "Marzo", 4: "Abril", 5: "Mayo", 6: "Junio",
+    7: "Julio", 8: "Agosto", 9: "Septiembre", 10: "Octubre", 11: "Noviembre", 12: "Diciembre"
+}
+
+def format_mes_anio(mes: int, anio: int, corto: bool = True) -> str:
+    """Retorna etiqueta de mes y año en español (ej. 'Ene 2024' o 'Enero 2024')."""
+    d = MESES_ES_CORTO if corto else MESES_ES_COMPLETO
+    return f"{d.get(int(mes), f'Mes {mes}')} {int(anio)}"
+
 # Aliases de compatibilidad de colores
 PRIMARY_COLOR = COLOR_PRIMARY
 SUCCESS_COLOR = COLOR_SUCCESS
@@ -295,6 +311,82 @@ CUSTOM_CSS = """
         border: 1px solid rgba(255, 255, 255, 0.08);
         overflow: hidden;
     }
+
+    /* Corrección de truncamiento en st.metric */
+    div[data-testid="stMetric"] {
+        background: rgba(17, 24, 39, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 10px;
+        padding: 0.75rem 0.9rem;
+    }
+    div[data-testid="stMetricLabel"] > div,
+    div[data-testid="stMetricLabel"] p,
+    div[data-testid="stMetricLabel"] {
+        white-space: normal !important;
+        overflow: visible !important;
+        text-overflow: clip !important;
+        word-break: break-word !important;
+        font-size: 0.75rem !important;
+        color: #94A3B8 !important;
+        font-weight: 600 !important;
+        line-height: 1.25 !important;
+    }
+    div[data-testid="stMetricValue"] > div,
+    div[data-testid="stMetricValue"] {
+        white-space: normal !important;
+        overflow: visible !important;
+        text-overflow: clip !important;
+        word-break: break-word !important;
+        font-size: 1.05rem !important;
+        line-height: 1.3 !important;
+        color: #F8FAFC !important;
+        font-weight: 700 !important;
+    }
+
+    /* Tarjetas de Metadatos de Ficha Técnica / Glosario */
+    .indicator-meta-card {
+        background: linear-gradient(145deg, rgba(17, 24, 39, 0.85), rgba(15, 23, 42, 0.9));
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 10px;
+        padding: 0.85rem 1rem;
+        height: 100%;
+        min-height: 82px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        transition: all 0.2s ease;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    }
+    .indicator-meta-card:hover {
+        border-color: rgba(0, 210, 255, 0.35);
+        box-shadow: 0 4px 16px rgba(0, 210, 255, 0.1);
+    }
+    .indicator-meta-label {
+        font-size: 0.72rem;
+        font-weight: 600;
+        color: #94A3B8;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        margin-bottom: 0.35rem;
+        white-space: normal;
+        line-height: 1.25;
+    }
+    .indicator-meta-label .material-symbols-outlined {
+        font-size: 0.95rem;
+        color: #38BDF8;
+    }
+    .indicator-meta-value {
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: #F8FAFC;
+        line-height: 1.3;
+        letter-spacing: -0.01em;
+        white-space: normal;
+        word-break: break-word;
+    }
 </style>
 """
 
@@ -444,6 +536,26 @@ def render_diagnostic(
     st.markdown(html, unsafe_allow_html=True)
 
 
+def render_indicator_meta_card(
+    label: str,
+    value: str,
+    icon: str = "info"
+):
+    """Renderiza una tarjeta de metadatos de ficha técnica sin truncamiento de texto."""
+    c_label = format_bold_markdown(label)
+    c_value = format_bold_markdown(value)
+    html = f"""
+    <div class="indicator-meta-card">
+        <div class="indicator-meta-label">
+            <span class="material-symbols-outlined">{icon}</span>
+            {c_label}
+        </div>
+        <div class="indicator-meta-value">{c_value}</div>
+    </div>
+    """
+    st.markdown(html, unsafe_allow_html=True)
+
+
 # Aliases directos e intercambiables para prevenir cualquier error de importación
 render_ai_banner = render_banner
 render_ai_kpi = render_kpi_card
@@ -457,6 +569,7 @@ __all__ = [
     "render_banner",
     "render_kpi_card",
     "render_diagnostic",
+    "render_indicator_meta_card",
     "render_ai_banner",
     "render_ai_kpi",
     "render_ai_diagnostic",

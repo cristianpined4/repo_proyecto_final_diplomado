@@ -30,7 +30,9 @@ from styles import (
     COLOR_WARNING,
     COLOR_DANGER,
     COLOR_ACCENT,
-    COLOR_SECONDARY
+    COLOR_SECONDARY,
+    MESES_ES_CORTO,
+    format_mes_anio
 )
 from db import (
     check_connection,
@@ -152,18 +154,23 @@ if (has_temporal_filter or filtros["sucursales"]) and not df_diario_fil.empty:
             "total_ingresos": "sum",
             "cogs": "sum",
             "utilidad_bruta": "sum"
-        }).reset_index().rename(columns={"fecha": "eje_x"})
-        df_tendencia_view["eje_x"] = df_tendencia_view["eje_x"].astype(str)
+        }).reset_index()
+        df_tendencia_view = df_tendencia_view.sort_values(by="fecha")
+        df_tendencia_view["eje_x"] = df_tendencia_view["fecha"].apply(
+            lambda d: f"{pd.to_datetime(d).day:02d} {MESES_ES_CORTO.get(pd.to_datetime(d).month, '')} {pd.to_datetime(d).year}"
+        )
         x_label_chart = "Día"
     else:
-        # Agrupación por meses
+        # Agrupación por meses con nombres en español
         df_tendencia_view = df_diario_fil.groupby(["anio", "mes"]).agg({
             "total_ingresos": "sum",
             "cogs": "sum",
             "utilidad_bruta": "sum"
         }).reset_index()
-        df_tendencia_view["eje_x"] = df_tendencia_view.apply(lambda r: f"{int(r['anio'])}-{int(r['mes']):02d}", axis=1)
         df_tendencia_view = df_tendencia_view.sort_values(by=["anio", "mes"])
+        df_tendencia_view["eje_x"] = df_tendencia_view.apply(
+            lambda r: f"{MESES_ES_CORTO.get(int(r['mes']), '')} {int(r['anio'])}", axis=1
+        )
         x_label_chart = "Mes"
 else:
     kpi_data = df_kpis.iloc[0]
@@ -178,7 +185,10 @@ else:
     debito_iva_val = float(kpi_data['total_iva_debito'])
     periodo_tag = "Histórico Consolidado"
     
-    df_tendencia_view = df_tendencia.copy().rename(columns={"anio_mes": "eje_x"})
+    df_tendencia_view = df_tendencia.copy().sort_values(by=["anio", "mes"])
+    df_tendencia_view["eje_x"] = df_tendencia_view.apply(
+        lambda r: f"{MESES_ES_CORTO.get(int(r['mes']), '')} {int(r['anio'])}", axis=1
+    )
     x_label_chart = "Mes"
 
 # ==============================================================================
@@ -358,7 +368,8 @@ with tab_g1:
             title=f"Tendencia de Facturación y Costos ({filtros['periodo']})",
             xaxis_title=f"Eje Temporal ({x_label_chart})",
             yaxis_title="Dólares ($USD)",
-            hovermode="x unified"
+            hovermode="x unified",
+            xaxis=dict(type="category", tickangle=-45)
         )
         apply_chart_theme(fig_trend)
         st.plotly_chart(fig_trend, width="stretch")

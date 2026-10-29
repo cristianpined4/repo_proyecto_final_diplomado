@@ -28,7 +28,8 @@ from styles import (
     COLOR_SUCCESS,
     COLOR_WARNING,
     COLOR_DANGER,
-    COLOR_ACCENT
+    COLOR_ACCENT,
+    MESES_ES_CORTO
 )
 from db import get_balance_iva_fiscal
 from filters import render_global_filters
@@ -65,6 +66,12 @@ if filtros["anios"]:
     df_iva_plot = df_iva_plot[df_iva_plot["anio"].isin(filtros["anios"])]
 if filtros["meses_filtro"]:
     df_iva_plot = df_iva_plot[df_iva_plot["mes"].isin(filtros["meses_filtro"])]
+
+# Ordenar cronológicamente y generar etiqueta mensual en español
+df_iva_plot = df_iva_plot.sort_values(by=["anio", "mes"], ascending=True)
+df_iva_plot["periodo_es"] = df_iva_plot.apply(
+    lambda r: f"{MESES_ES_CORTO.get(int(r['mes']), '')} {int(r['anio'])}", axis=1
+)
 
 # Totales recalculados
 total_debito = df_iva_plot["iva_debito_ventas"].sum()
@@ -120,7 +127,7 @@ with c4:
     render_kpi_card(
         title="Períodos Auditados",
         value=f"{meses_evaluados} Meses",
-        subtitle=f"{df_iva.iloc[0]['anio_mes']} a {df_iva.iloc[-1]['anio_mes']}",
+        subtitle=f"{df_iva_plot.iloc[0]['periodo_es']} a {df_iva_plot.iloc[-1]['periodo_es']}" if not df_iva_plot.empty else "Sin registros",
         delta="Trazabilidad 100%",
         delta_type="neutral",
         icon_name="history",
@@ -153,13 +160,13 @@ col_g1, col_g2 = st.columns([3, 2])
 with col_g1:
     fig_iva = go.Figure()
     fig_iva.add_trace(go.Bar(
-        x=df_iva_plot["anio_mes"],
+        x=df_iva_plot["periodo_es"],
         y=df_iva_plot["iva_debito_ventas"],
         name="IVA Débito (Ventas)",
         marker_color=COLOR_PRIMARY
     ))
     fig_iva.add_trace(go.Bar(
-        x=df_iva_plot["anio_mes"],
+        x=df_iva_plot["periodo_es"],
         y=df_iva_plot["iva_credito_compras"],
         name="IVA Crédito (Compras)",
         marker_color=COLOR_SUCCESS
@@ -167,8 +174,9 @@ with col_g1:
     fig_iva.update_layout(
         title="Comparativo Mensual: IVA Débito vs. Crédito Fiscal ($)",
         barmode="group",
-        xaxis_title="Período Fiscal (Año-Mes)",
-        yaxis_title="Dólares ($USD)"
+        xaxis_title="Mes / Período Fiscal",
+        yaxis_title="Dólares ($USD)",
+        xaxis=dict(type="category", tickangle=-45)
     )
     apply_chart_theme(fig_iva)
     st.plotly_chart(fig_iva, width="stretch")
@@ -177,15 +185,16 @@ with col_g2:
     colores_balance = [COLOR_SUCCESS if b < 0 else COLOR_DANGER for b in df_iva_plot["balance_iva_a_pagar"]]
     fig_neto = go.Figure()
     fig_neto.add_trace(go.Bar(
-        x=df_iva_plot["anio_mes"],
+        x=df_iva_plot["periodo_es"],
         y=df_iva_plot["balance_iva_a_pagar"],
         marker_color=colores_balance,
         name="Balance Neto"
     ))
     fig_neto.update_layout(
         title="Balance Neto Mensual (Verde: Saldo a Favor | Rojo: Por Enterar)",
-        xaxis_title="Período Fiscal",
-        yaxis_title="Balance Neto ($USD)"
+        xaxis_title="Mes / Período Fiscal",
+        yaxis_title="Balance Neto ($USD)",
+        xaxis=dict(type="category", tickangle=-45)
     )
     apply_chart_theme(fig_neto)
     st.plotly_chart(fig_neto, width="stretch")
@@ -207,7 +216,7 @@ df_iva_table["balance_iva_a_pagar"] = df_iva_table["balance_iva_a_pagar"].apply(
 )
 
 df_iva_table = df_iva_table.rename(columns={
-    "anio_mes": "Período",
+    "periodo_es": "Período",
     "nombre_mes": "Mes",
     "base_ventas": "Base Ventas ($)",
     "iva_debito_ventas": "IVA Débito Ventas ($)",
