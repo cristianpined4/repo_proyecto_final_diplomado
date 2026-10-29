@@ -206,6 +206,8 @@ with tab_inv1:
     df_reposicion["costo_estimado_reposicion"] = df_reposicion["unidades_a_pedir"] * df_reposicion["costo_promedio"]
     
     df_rep_show = df_reposicion.copy()
+    df_rep_show["stock_actual"] = df_rep_show["stock_actual"].apply(lambda x: f"{int(x):,}")
+    df_rep_show["unidades_a_pedir"] = df_rep_show["unidades_a_pedir"].apply(lambda x: f"{int(x):,}")
     df_rep_show["costo_promedio"] = df_rep_show["costo_promedio"].apply(lambda x: f"${x:,.2f}")
     df_rep_show["precio_venta"] = df_rep_show["precio_venta"].apply(lambda x: f"${x:,.2f}")
     df_rep_show["costo_estimado_reposicion"] = df_rep_show["costo_estimado_reposicion"].apply(lambda x: f"${x:,.2f}")

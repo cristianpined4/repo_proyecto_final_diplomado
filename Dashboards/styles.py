@@ -35,6 +35,36 @@ def format_mes_anio(mes: int, anio: int, corto: bool = True) -> str:
     d = MESES_ES_CORTO if corto else MESES_ES_COMPLETO
     return f"{d.get(int(mes), f'Mes {mes}')} {int(anio)}"
 
+def format_currency(value) -> str:
+    """Formatea valores monetarios al estándar institucional $x,xxx.xx."""
+    if value is None:
+        return "$0.00"
+    try:
+        val = float(value)
+        return f"${val:,.2f}"
+    except (ValueError, TypeError):
+        return str(value)
+
+def format_integer(value) -> str:
+    """Formatea cantidades y conteos enteros al estándar institucional x,xxx."""
+    if value is None:
+        return "0"
+    try:
+        val = int(round(float(value)))
+        return f"{val:,}"
+    except (ValueError, TypeError):
+        return str(value)
+
+def format_percent(value) -> str:
+    """Formatea tasas porcentuales al estándar xx.xx%."""
+    if value is None:
+        return "0.00%"
+    try:
+        val = float(value)
+        return f"{val:.2f}%"
+    except (ValueError, TypeError):
+        return str(value)
+
 # Aliases de compatibilidad de colores
 PRIMARY_COLOR = COLOR_PRIMARY
 SUCCESS_COLOR = COLOR_SUCCESS
@@ -570,6 +600,12 @@ __all__ = [
     "render_kpi_card",
     "render_diagnostic",
     "render_indicator_meta_card",
+    "format_currency",
+    "format_integer",
+    "format_percent",
+    "format_mes_anio",
+    "MESES_ES_CORTO",
+    "MESES_ES_COMPLETO",
     "render_ai_banner",
     "render_ai_kpi",
     "render_ai_diagnostic",

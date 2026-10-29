@@ -136,7 +136,7 @@ with tab_fichas:
         with col_det1:
             st.markdown(
                 """
-                <div style="background: rgba(17, 24, 39, 0.75); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 14px;">
+                <div style="background: rgba(17, 24, 39, 0.75); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 14px;margin-top: 20px;">
                     <div style="font-weight: 700; color: #F8FAFC; margin-bottom: 6px; font-size: 0.9rem;">
                         <span class="material-symbols-outlined" style="font-size: 16px; color: #00D2FF;">description</span>
                         Definición Conceptual y Alcance
@@ -154,7 +154,7 @@ with tab_fichas:
         with col_det2:
             st.markdown(
                 """
-                <div style="background: rgba(17, 24, 39, 0.75); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 14px;">
+                <div style="background: rgba(17, 24, 39, 0.75); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 8px; padding: 14px;margin-top: 20px;">
                     <div style="font-weight: 700; color: #F8FAFC; margin-bottom: 6px; font-size: 0.9rem;">
                         <span class="material-symbols-outlined" style="font-size: 16px; color: #10B981;">rule</span>
                         Criterios de Depuración y Calidad
@@ -212,7 +212,7 @@ with tab_fichas:
         with c2:
             render_indicator_meta_card("Puntos de Venta", "3 Sucursales Físicas", "storefront")
         with c3:
-            render_indicator_meta_card("Líder en Facturación", "Usulután ($1.63M)", "leaderboard")
+            render_indicator_meta_card("Líder en Facturación", "Usulután ($1,633,508.87)", "leaderboard")
         with c4:
             render_indicator_meta_card("Líder en Rentabilidad", "Matriz Centro (26.80%)", "trending_up")
 

@@ -346,14 +346,16 @@ with tab_g1:
             mode="lines+markers",
             name="Facturación Total ($)",
             line=dict(color=COLOR_PRIMARY, width=2.5),
-            marker=dict(size=4)
+            marker=dict(size=4),
+            hovertemplate="Facturación Total: $%{y:,.2f}<extra></extra>"
         ))
         fig_trend.add_trace(go.Scatter(
             x=df_tendencia_view["eje_x"],
             y=df_tendencia_view["cogs"],
             mode="lines",
             name="Costo de Mercancía COGS ($)",
-            line=dict(color=COLOR_WARNING, width=1.5, dash="dot")
+            line=dict(color=COLOR_WARNING, width=1.5, dash="dot"),
+            hovertemplate="Costo Mercancía (COGS): $%{y:,.2f}<extra></extra>"
         ))
         fig_trend.add_trace(go.Scatter(
             x=df_tendencia_view["eje_x"],
@@ -362,14 +364,16 @@ with tab_g1:
             name="Utilidad Neta ($)",
             line=dict(color=COLOR_SUCCESS, width=2.2),
             fill="tonexty",
-            fillcolor="rgba(16, 185, 129, 0.08)"
+            fillcolor="rgba(16, 185, 129, 0.08)",
+            hovertemplate="Utilidad Neta: $%{y:,.2f}<extra></extra>"
         ))
         fig_trend.update_layout(
             title=f"Tendencia de Facturación y Costos ({filtros['periodo']})",
             xaxis_title=f"Eje Temporal ({x_label_chart})",
             yaxis_title="Dólares ($USD)",
             hovermode="x unified",
-            xaxis=dict(type="category", tickangle=-45)
+            xaxis=dict(type="category", tickangle=-45),
+            yaxis=dict(tickprefix="$")
         )
         apply_chart_theme(fig_trend)
         st.plotly_chart(fig_trend, width="stretch")

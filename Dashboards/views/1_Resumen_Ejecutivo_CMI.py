@@ -203,9 +203,9 @@ with p1:
     
     st.markdown("##### Ficha de Control Financiero")
     df_fin_table = pd.DataFrame([
-        {"Métrica": "Facturación Bruta Total", "Valor Registrado": f"${kpi['total_ingresos_brutos']:,.2f}", "Meta Operativa": "> $3,000,000", "Estado": "Cumplido", "Responsable": "Gerencia Financiera"},
-        {"Métrica": "Margen Bruto Ponderado", "Valor Registrado": f"{m_val:.2f}%", "Meta Operativa": ">= 20.0%", "Estado": "Cumplido", "Responsable": "Gerencia General"},
-        {"Métrica": "Costo de Adquisición (COGS)", "Valor Registrado": f"${kpi['costo_mercancia_vendida_cogs']:,.2f}", "Meta Operativa": "< 78% de Ventas", "Estado": "Controlado (76.8%)", "Responsable": "Jefatura de Compras"},
+        {"Métrica": "Facturación Bruta Total", "Valor Registrado": f"${kpi['total_ingresos_brutos']:,.2f}", "Meta Operativa": "> $3,000,000.00", "Estado": "Cumplido", "Responsable": "Gerencia Financiera"},
+        {"Métrica": "Margen Bruto Ponderado", "Valor Registrado": f"{m_val:.2f}%", "Meta Operativa": ">= 20.00%", "Estado": "Cumplido", "Responsable": "Gerencia General"},
+        {"Métrica": "Costo de Adquisición (COGS)", "Valor Registrado": f"${kpi['costo_mercancia_vendida_cogs']:,.2f}", "Meta Operativa": "< 78.00% de Ventas", "Estado": "Controlado (76.80%)", "Responsable": "Jefatura de Compras"},
         {"Métrica": "Débito Fiscal IVA Ventas", "Valor Registrado": f"${kpi['total_iva_debito']:,.2f}", "Meta Operativa": "Cuadratura 100%", "Estado": "Cuadrado", "Responsable": "Contador General"}
     ])
     st.dataframe(df_fin_table, width="stretch", hide_index=True)
@@ -253,6 +253,9 @@ with p2:
     
     st.markdown("##### Principales Clientes Comerciales por Monto Adquirido")
     df_top_clean = df_top_clientes.copy()
+    df_top_clean["total_transacciones"] = df_top_clean["total_transacciones"].apply(lambda x: f"{int(x):,}")
+    df_top_clean["total_comprado"] = df_top_clean["total_comprado"].apply(lambda x: f"${float(x):,.2f}")
+    df_top_clean["ticket_promedio_cliente"] = df_top_clean["ticket_promedio_cliente"].apply(lambda x: f"${float(x):,.2f}")
     df_top_clean = df_top_clean.rename(columns={
         "id_cliente": "Código Cliente",
         "cliente": "Razón Social / Nombre",
@@ -381,13 +384,14 @@ with c_an1:
         title="Facturación Bruta Anual y Margen Ponderado (%)",
         labels={"anio": "Año Fiscal", "total_ingresos": "Total Ingresos ($)", "margen_ponderado": "Margen %"}
     )
-    fig_anual.update_traces(texttemplate="$%{text:,.0f}", textposition="outside")
+    fig_anual.update_traces(texttemplate="$%{text:,.2f}", textposition="outside")
     apply_chart_theme(fig_anual)
     st.plotly_chart(fig_anual, width="stretch")
 
 with c_an2:
     st.markdown("##### Resumen Tabulado por Ejercicio")
     df_show = df_anual.copy()
+    df_show["transacciones"] = df_show["transacciones"].apply(lambda x: f"{int(x):,}")
     df_show["total_ingresos"] = df_show["total_ingresos"].apply(lambda x: f"${x:,.2f}")
     df_show["utilidad_bruta"] = df_show["utilidad_bruta"].apply(lambda x: f"${x:,.2f}")
     df_show["margen_ponderado"] = df_show["margen_ponderado"].apply(lambda x: f"{x:.2f}%")

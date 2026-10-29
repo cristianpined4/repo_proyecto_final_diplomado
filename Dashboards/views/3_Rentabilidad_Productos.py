@@ -247,7 +247,7 @@ with tab_p2:
         size="unidades_vendidas",
         color="categoria",
         hover_name="producto",
-        hover_data={"sku": True, "utilidad_bruta": ":$,.2f", "unidades_vendidas": True},
+        hover_data={"sku": True, "utilidad_bruta": ":$,.2f", "unidades_vendidas": ":,d"},
         title="Dispersión de Portafolio: Rentabilidad vs. Facturación",
         labels={
             "ingresos_netos": "Ingresos Netos ($USD)",
@@ -255,6 +255,7 @@ with tab_p2:
             "categoria": "Categoría"
         }
     )
+    fig_scatter.update_layout(xaxis=dict(tickprefix="$"))
     apply_chart_theme(fig_scatter)
     st.plotly_chart(fig_scatter, width="stretch")
 
@@ -307,6 +308,7 @@ st.markdown("---")
 st.markdown("#### Detalle Tabulado de Rentabilidad por Artículo")
 
 df_table = df_filtered.copy()
+df_table["unidades_vendidas"] = df_table["unidades_vendidas"].apply(lambda x: f"{int(x):,}")
 df_table["ingresos_netos"] = df_table["ingresos_netos"].apply(lambda x: f"${x:,.2f}")
 df_table["costo_total"] = df_table["costo_total"].apply(lambda x: f"${x:,.2f}")
 df_table["utilidad_bruta"] = df_table["utilidad_bruta"].apply(lambda x: f"${x:,.2f}")

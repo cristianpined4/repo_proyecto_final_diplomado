@@ -149,7 +149,7 @@ with col_p1:
         labels={"total_compras": "Total Compras ($)", "proveedor": "Proveedor"}
     )
     fig_top_p.update_traces(texttemplate="$%{text:,.2f}", textposition="outside")
-    fig_top_p.update_layout(yaxis=dict(autorange="reversed"))
+    fig_top_p.update_layout(yaxis=dict(autorange="reversed"), xaxis=dict(tickprefix="$"))
     apply_chart_theme(fig_top_p)
     st.plotly_chart(fig_top_p, width="stretch")
 
@@ -193,6 +193,8 @@ if busqueda_prov:
     ]
 
 df_prov_fmt = df_prov_show.copy()
+df_prov_fmt["facturas_emitidas"] = df_prov_fmt["facturas_emitidas"].apply(lambda x: f"{int(x):,}")
+df_prov_fmt["unidades_adquiridas"] = df_prov_fmt["unidades_adquiridas"].apply(lambda x: f"{int(x):,}")
 df_prov_fmt["subtotal_compras"] = df_prov_fmt["subtotal_compras"].apply(lambda x: f"${x:,.2f}")
 df_prov_fmt["iva_credito"] = df_prov_fmt["iva_credito"].apply(lambda x: f"${x:,.2f}")
 df_prov_fmt["total_compras"] = df_prov_fmt["total_compras"].apply(lambda x: f"${x:,.2f}")

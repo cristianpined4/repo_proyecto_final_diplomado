@@ -154,19 +154,22 @@ with col_bar1:
         name="Costo de Mercancía (COGS)",
         x=df_view["sucursal"],
         y=df_view["costo_total"],
-        marker_color=COLOR_WARNING
+        marker_color=COLOR_WARNING,
+        hovertemplate="%{x}<br>COGS: $%{y:,.2f}<extra></extra>"
     ))
     fig_stack.add_trace(go.Bar(
         name="Utilidad Neta (Ganancia)",
         x=df_view["sucursal"],
         y=df_view["utilidad_bruta"],
-        marker_color=COLOR_SUCCESS
+        marker_color=COLOR_SUCCESS,
+        hovertemplate="%{x}<br>Utilidad Neta: $%{y:,.2f}<extra></extra>"
     ))
     fig_stack.update_layout(
         barmode="stack",
         title="Composición de la Base Imponible: Costo vs. Ganancia",
         xaxis_title="Punto de Venta",
-        yaxis_title="Dólares ($USD)"
+        yaxis_title="Dólares ($USD)",
+        yaxis=dict(tickprefix="$")
     )
     apply_chart_theme(fig_stack)
     st.plotly_chart(fig_stack, width="stretch")
@@ -177,7 +180,8 @@ with col_bar2:
         name="Unidades Despachadas",
         x=df_view["sucursal"],
         y=df_view["unidades_vendidas"],
-        marker_color=COLOR_PRIMARY
+        marker_color=COLOR_PRIMARY,
+        hovertemplate="%{x}<br>Unidades: %{y:,}<extra></extra>"
     ))
     fig_vol.update_layout(
         title="Volumen Físico Despachado por Punto de Venta",
@@ -193,6 +197,8 @@ with col_bar2:
 st.markdown("#### Resumen Tabulado de Rendimiento Comercial")
 
 df_formatted = df_view.copy()
+df_formatted["transacciones"] = df_formatted["transacciones"].apply(lambda x: f"{int(x):,}")
+df_formatted["unidades_vendidas"] = df_formatted["unidades_vendidas"].apply(lambda x: f"{int(x):,}")
 df_formatted["subtotal_ventas"] = df_formatted["subtotal_ventas"].apply(lambda x: f"${x:,.2f}")
 df_formatted["total_ventas"] = df_formatted["total_ventas"].apply(lambda x: f"${x:,.2f}")
 df_formatted["costo_total"] = df_formatted["costo_total"].apply(lambda x: f"${x:,.2f}")

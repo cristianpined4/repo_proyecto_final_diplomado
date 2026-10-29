@@ -126,7 +126,7 @@ with c3:
 with c4:
     render_kpi_card(
         title="Períodos Auditados",
-        value=f"{meses_evaluados} Meses",
+        value=f"{meses_evaluados:,} Meses",
         subtitle=f"{df_iva_plot.iloc[0]['periodo_es']} a {df_iva_plot.iloc[-1]['periodo_es']}" if not df_iva_plot.empty else "Sin registros",
         delta="Trazabilidad 100%",
         delta_type="neutral",
@@ -163,13 +163,15 @@ with col_g1:
         x=df_iva_plot["periodo_es"],
         y=df_iva_plot["iva_debito_ventas"],
         name="IVA Débito (Ventas)",
-        marker_color=COLOR_PRIMARY
+        marker_color=COLOR_PRIMARY,
+        hovertemplate="%{x}<br>IVA Débito: $%{y:,.2f}<extra></extra>"
     ))
     fig_iva.add_trace(go.Bar(
         x=df_iva_plot["periodo_es"],
         y=df_iva_plot["iva_credito_compras"],
         name="IVA Crédito (Compras)",
-        marker_color=COLOR_SUCCESS
+        marker_color=COLOR_SUCCESS,
+        hovertemplate="%{x}<br>IVA Crédito: $%{y:,.2f}<extra></extra>"
     ))
     fig_iva.update_layout(
         title="Comparativo Mensual: IVA Débito vs. Crédito Fiscal ($)",
@@ -188,7 +190,8 @@ with col_g2:
         x=df_iva_plot["periodo_es"],
         y=df_iva_plot["balance_iva_a_pagar"],
         marker_color=colores_balance,
-        name="Balance Neto"
+        name="Balance Neto",
+        hovertemplate="%{x}<br>Balance Neto: $%{y:,.2f}<extra></extra>"
     ))
     fig_neto.update_layout(
         title="Balance Neto Mensual (Verde: Saldo a Favor | Rojo: Por Enterar)",

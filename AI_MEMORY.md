@@ -247,7 +247,12 @@ Se desarrolló una solución de Business Intelligence de nivel ejecutivo alojada
 
 ---
 
-### 10.3 Cumplimiento de Estándares Técnicos
+### 10.3 Cumplimiento de Estándares Técnicos y Formato Numérico / Monetario
+- **Formateo Numérico y Monetario Riguroso**:
+  - **Cantidades y Conteos Enteros**: Formato estandarizado `x,xxx` sin decimales y con separador de miles por comas (ej. `9,201` transacciones, `174,835` unidades físicas, `10,000` SKUs, `1,660` alertas) en todas las tarjetas KPI, tooltips de gráficos y tablas interactivas (`st.dataframe`).
+  - **Valores Monetarios**: Formato estandarizado `$x,xxx.xx` con símbolo de dólar `$`, separador de miles por comas y exactamente dos decimales (ej. `$3,274,079.50`, `$1,633,508.87`, `$355.84`, `$5.00`) en métricas ejecutivas, etiquetas de barras, tooltips y columnas tabuladas.
+  - **Tasas Porcentuales**: Formato estandarizado `xx.xx%` (ej. `23.17%`, `26.80%`).
+  - **Funciones Centralizadas en `Dashboards/styles.py`**: `format_currency()`, `format_integer()`, `format_percent()`.
 - **Sintaxis Streamlit**: Se reemplazó el parámetro obsoleto `use_container_width=True` por `width="stretch"` en todas las tablas y gráficos interactivos.
 - **Rendimiento**: Ejecución fluida sin bloqueos gracias al desacoplamiento entre capa de cálculo (`Dashboards/db.py`) y capa de presentación (`Dashboards/views/`).
 - **Aislamiento**: Cero modificaciones en las carpetas operacionales del aplicativo web original (`InventaryApp/` e `InventaryAppApi/`).
