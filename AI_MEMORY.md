@@ -149,6 +149,9 @@
 | FASE 5: Integración y Carga de Datos | COMPLETADO Y VERIFICADO | Extracción de 15 tablas OLTP, transformación y carga completa al DW. |
 | FASE 6: Validación Final | COMPLETADO Y VERIFICADO | 5 pruebas pytest pasadas, vistas analíticas validadas con queries directas. |
 | FASE 7: Plataforma de Dashboards BI (Streamlit) | COMPLETADO Y VERIFICADO | 8 vistas ejecutivas interactivas en `Dashboards/` con filtros multidimensionales, CMI, control de stock y balance de IVA. |
+| ENTREGABLE 8: Dataset de prueba e instrucciones | COMPLETADO Y VERIFICADO | Archivo `dataset_test.sql` con instrucciones reproducibles (Laravel seeders 10k + Python ETL) y dataset DML ejecutable directo en PostgreSQL con tono natural de desarrollador. |
+| ENTREGABLE 9: Diagramas Operacional y Dimensional | COMPLETADO Y VERIFICADO | Imágenes HD `diagrama_modelo_operacional.png` (ERD 3NF con columnas reales como `stock_actual`, `nombre`, `correo` y conteos exactos) y `diagrama_modelo_dimensional.png` (Esquema Estrella dw.* con 60,000 snapshots, hechos y dimensiones reales). |
+| ENTREGABLE 10: Evidencias de Optimización SQL | COMPLETADO Y VERIFICADO | Dos archivos especializados con planes `EXPLAIN ANALYZE` 100% reales capturados de PostgreSQL 16: `Evidencias_optimizacion_consultas_sistema_operacional.sql` (Covering Index en POS eliminando heap fetches a 0 y Composite Index en ventas eliminando 104 tuplas descartadas) y `Evidencias_optimizacion_consultas_datawarehouse.sql` (Índice multidimensional en fact_ventas reduciendo 38% tiempo, e Índice Parcial en fact_inventario_snapshot acelerando 111x de 192.6 ms a 1.72 ms). Comentarios con estilo humano y ortografía técnica cuidada. |
 | Restricción: No modificar Frontend/Backend | COMPLETADO Y VERIFICADO | Cero archivos modificados en `InventaryApp/` e `InventaryAppApi/`. |
 
 ---
