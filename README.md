@@ -1,319 +1,295 @@
 <div align="center">
 
-# 🏭 Centro de Plásticos Limeño
+# 🏭 Centro de Plásticos El Limeño
 
 ## Arquitectura Integral de Datos e Inteligencia de Negocios
 
 [![Laravel](https://img.shields.io/badge/Laravel-11.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
 [![Vue.js](https://img.shields.io/badge/Vue.js-3.x-4FC08D?style=for-the-badge&logo=vue.js&logoColor=white)](https://vuejs.org)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-8.x-336791?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org)
-[![Python](https://img.shields.io/badge/Python-ETL-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org)
+[![Docker](https://img.shields.io/badge/Docker-Data_Warehouse-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com)
+[![Python](https://img.shields.io/badge/Python-ETL_3.10-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.36+-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io)
 
-**Proyecto Final — Pre-Especialización en Bases de Datos e Inteligencia de Negocios**
-**Universidad de El Salvador (UES)**
+**Proyecto Final — Curso de Especialización en Administración de Bases de Datos e Inteligencia de Negocios**  
+**Universidad de El Salvador (UES) — Facultad Multidisciplinaria Oriental**  
+**Departamento de Ingeniería y Arquitectura — Sección de Ingeniería de Sistemas Informáticos**
 
 </div>
 
 ---
 
-## 👥 Integrantes del Equipo
+## 👥 Integrantes del Equipo y Asesoría
 
-| Nombre                         | Carnet  |
-| ------------------------------ | ------- |
-| Cristian Alberto Pineda Blanco | PB20002 |
-| Andrés Isaí Vásquez Vásquez    | VV18009 |
-| Luis Andrés Parada Barrero     | PB19022 |
+| Nombre | Carnet | Rol Principal |
+| :--- | :---: | :--- |
+| **Cristian Alberto Pineda Blanco** | PB20002 | Arquitectura de Datos, Optimización SQL y Backend Laravel |
+| **Andrés Isaí Vásquez Vásquez** | VV18009 | Modelado Dimensional, Pipeline ETL y Pruebas Unitarias |
+| **Luis Andrés Parada Barrero** | PB19022 | Plataforma de Business Intelligence en Streamlit y Frontend |
 
----
-
-## 📋 Resumen
-
-El **Centro de Plásticos Limeño**, ubicado en San Miguel, El Salvador, orienta su actividad comercial a la distribución mayorista y minorista de productos plásticos, desechables y artículos para el hogar. El proyecto diseña e implementa una **arquitectura integral de datos** que abarca todo el ciclo de la información: desde la captura transaccional hasta la explotación analítica, con el fin de apoyar la toma de decisiones gerenciales.
-
-La solución parte de un sistema web transaccional (OLTP) desarrollado con **Laravel y Vue.js**, que registra compras, ventas e inventarios en una base de datos relacional **PostgreSQL**. Sobre este cimiento, se construye un flujo de **Inteligencia de Negocios** compuesto por un proceso **ETL en Python**, un **Data Warehouse/Data Mart** estructurado bajo un modelo dimensional en PostgreSQL/Docker, y una **plataforma analítica interactiva en Streamlit** orquestada con `st.navigation` y 8 módulos especializados para auditar el margen bruto ponderado, monitorear alertas de inventario crítico (< 15 piezas), analizar el rendimiento por sucursal y conciliar el balance fiscal de IVA (13%).
-
-> **Palabras clave:** Inteligencia de Negocios · Arquitectura de datos · Sistema transaccional · Proceso ETL · Modelo dimensional · Rotación de inventario · Rentabilidad comercial · Toma de decisiones · Streamlit
+**Docente Asesor y Coordinador:** Ing. Hector Javier Paiz Ramos  
+**Año Académico:** 2026 — San Miguel, El Salvador
 
 ---
 
-## 🎯 Planteamiento del Problema
+## 📋 Resumen del Proyecto
 
-El Centro de Plásticos Limeño mantiene **tres años de historial operativo** en su sistema OLTP, pero la dependencia exclusiva de ese entorno presenta limitaciones críticas para el análisis:
+El **Centro de Plásticos El Limeño**, con sede principal en la ciudad de San Miguel y sucursales en Metrocentro y Usulután, es una empresa dedicada a la comercialización mayorista y minorista de artículos plásticos, enseres para el hogar, bolsas y recipientes desechables.
 
-- El **costo de adquisición** fluctúa constantemente (precio del petróleo, fletes), impactando el margen bruto a lo largo del tiempo.
-- El catálogo mezcla artículos de **alto volumen / bajo margen** (bolsas, desechables) con productos de **menor movimiento / alta rentabilidad** (artículos para el hogar, cajas plásticas, macetas).
-- Existe **inventario estacional** (papel celofán, listones) con períodos de rotación nula.
-- Realizar análisis complejos directamente sobre la base de datos operacional **degrada el rendimiento** del sistema de facturación.
+El proyecto diseña e implementa una **solución integral de ingeniería de datos y analítica de negocios** que abarca el ciclo completo de vida de la información:
 
-**El problema central:** la necesidad de separar los entornos OLTP y OLAP, transformando la información operacional en una estructura analítica que responda consultas gerenciales sin afectar las operaciones cotidianas.
+1. **Captura Operacional (OLTP):** Sistema web transaccional desarrollado con **Laravel 11** y **Vue.js 3**, respaldado por una base de datos relacional normalizada en **PostgreSQL** (Tercera Forma Normal) que gestiona compras, ventas, inventario por sucursal y kardex permanente.
+2. **Optimización Física SQL:** Implementación de índices de cobertura (`INCLUDE`) e índices compuestos alineados a planes de ejecución evaluados con `EXPLAIN (ANALYZE, BUFFERS)`, eliminando lecturas a disco físico en el punto de venta (POS).
+3. **Integración y Transformación (ETL):** Pipeline automatizado y reproducible en **Python 3.10** (SQLAlchemy, pandas) que extrae registros operacionales, normaliza la información en un área de transición (`stg.*`) y consolida las dimensiones y hechos en menos de 15 segundos, verificado con pruebas unitarias en `pytest`.
+4. **Almacén de Datos (Data Warehouse):** Contenedor **Docker** con PostgreSQL 16 Alpine estructurado bajo un **modelo dimensional de constelación** (`dw.*`), compuesto por 3 tablas de hechos (`fact_ventas`, `fact_compras`, `fact_inventario_snapshot` con 60,000 registros históricos) y 6 dimensiones conformadas.
+5. **Plataforma de Inteligencia de Negocios (BI):** Aplicación analítica directiva desarrollada en **Streamlit** (carpeta `Dashboards/`) estructurada mediante `st.navigation`, filtros globales persistentes en `st.session_state` y 8 módulos interactivos con gráficos Plotly para el control de rentabilidad comercial, stock crítico, rotación y balance de IVA fiscal (13%).
 
----
-
-## 🎓 Objetivos del Proyecto
-
-### Objetivo General
-
-Diseñar e implementar una **arquitectura de datos integral** para Centro de Plásticos Limeño que abarque desde la captura de información mediante un sistema operacional web hasta una solución de Inteligencia de Negocios, utilizando procesos ETL, modelado dimensional y una plataforma de dashboards interactivos en Streamlit para facilitar el análisis del comportamiento de productos, ventas, inventarios, cumplimiento tributario y rentabilidad comercial.
-
-### Objetivos Específicos
-
-1. **Sistema OLTP** — Desarrollar e implementar un sistema web funcional (PHP/Laravel + Vue.js) que registre y gestione las operaciones comerciales, respaldado por una BD OLTP en PostgreSQL.
-2. **Optimización SQL** — Aplicar estrategias de optimización a consultas representativas en PostgreSQL para asegurar un rendimiento eficiente en la gestión operativa.
-3. **Proceso ETL** — Diseñar e implementar scripts ETL en Python para integrar, limpiar y preparar los datos de compras, ventas e inventario.
-4. **Data Warehouse** — Diseñar e implementar un Data Warehouse/Data Mart mediante un modelo dimensional que separe la carga analítica del entorno transaccional.
-5. **KPIs y Métricas Formales** — Definir y calcular indicadores normalizados de facturación neta, margen ponderado, rotación de existencias, ticket promedio y balance de IVA fiscal.
-6. **Plataforma Analítica BI** — Desarrollar una suite ejecutiva en Streamlit estructurada con navegación por áreas de negocio (`st.navigation`), filtros multinivel interactivos y 8 módulos analíticos especializados.
+> **Palabras clave:** Inteligencia de Negocios, Data Warehouse, Arquitectura de Datos, Modelo Dimensional, Proceso ETL, Optimización SQL, Streamlit, PostgreSQL, Laravel, Vue.js.
 
 ---
 
-## 🏗️ Arquitectura del Sistema
+## 🏗️ Arquitectura Global del Sistema
 
-La solución abarca el **ciclo completo de los datos**:
+La solución desacopla estrictamente los entornos operacionales (OLTP) de los analíticos (OLAP) para garantizar que las consultas de alta agregación nunca degraden las cajas registradoras del negocio:
 
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│                     CAPA DE CAPTURA (OLTP)                      │
-│                                                                 │
-│   Vue.js (Frontend)  ◄──►  Laravel API  ◄──►  PostgreSQL       │
-│   Ventas · Compras · Inventario · Facturación electrónica       │
-└──────────────────────────────┬──────────────────────────────────┘
-                               │
-                    Proceso ETL (Python)
-                    Extracción · Limpieza · Transformación
-                               │
-                               ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                  CAPA ANALÍTICA (OLAP / DW)                     │
-│                                                                 │
-│          Data Warehouse / Data Mart (Modelo Dimensional)        │
-│          Hechos: Ventas · Compras · Inventario                  │
-│          Dimensiones: Producto · Categoría · Fecha · Proveedor  │
-└──────────────────────────────┬──────────────────────────────────┘
-                               │
-                               ▼
-┌─────────────────────────────────────────────────────────────────┐
-│                  CAPA DE VISUALIZACIÓN (BI)                     │
-│                                                                 │
-│          Plataforma Analítica Streamlit (Carpeta Dashboards/)   │
-│          8 Módulos · st.navigation · Plotly · Filtros Globales  │
-└─────────────────────────────────────────────────────────────────┘
+┌────────────────────────────────────────────────────────────────────────┐
+│                   1. CAPA TRANSACCIONAL (OLTP)                         │
+│                                                                        │
+│   Frontend (Vue.js 3 / Vite) ◄──► API REST (Laravel 11 / PHP 8.2)     │
+│   Cajas POS · Compras · Existencias por Sucursal · Kardex Ponderado    │
+│   Persistencia: PostgreSQL 16 (Normalización 3NF / Supabase Cloud)     │
+└───────────────────────────────────┬────────────────────────────────────┘
+                                    │
+                         Pipeline ETL (Python 3.10)
+                 Extracción Batch · Limpieza · Deduplicación
+                                    │
+                                    ▼
+┌────────────────────────────────────────────────────────────────────────┐
+│                 2. ZONA DE TRANSICIÓN (STAGING: stg.*)                 │
+│                                                                        │
+│   15 Tablas de Aterrizaje sin restricciones foráneas estrictas         │
+│   Auditoría de consistencia de tipos y saneamiento de nulos            │
+└───────────────────────────────────┬────────────────────────────────────┘
+                                    │
+                         Transformación Dimensional
+                 Generación de Claves Subrogadas (SK / BK)
+                                    │
+                                    ▼
+┌────────────────────────────────────────────────────────────────────────┐
+│                3. ALMACÉN DE DATOS (DATA WAREHOUSE: dw.*)              │
+│                                                                        │
+│   PostgreSQL 16 en Docker (Puerto 5433 / BD: inventory_dw)             │
+│   Hechos: fact_ventas (18.4k), fact_compras, fact_inventario_snapshot  │
+│   Dimensiones: tiempo, sucursal, producto, cliente, proveedor, usuario │
+│   Optimización: Índices Parciales y Compuestos Dimensionales           │
+└───────────────────────────────────┬────────────────────────────────────┘
+                                    │
+                      Lectura Exclusiva (SQLAlchemy)
+                                    │
+                                    ▼
+┌────────────────────────────────────────────────────────────────────────┐
+│              4. CAPA DE EXPLOTACIÓN Y DECISIÓN (BI)                    │
+│                                                                        │
+│   Plataforma Analítica Streamlit (Carpeta Dashboards/)                 │
+│   8 Módulos Ejecutivos · st.navigation · Plotly · Control Multidim.    │
+└────────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
 
-## 🛠️ Marco Tecnológico
+## 📂 Estructura del Repositorio
 
-| Capa                   | Tecnología                  | Rol                                                         |
-| ---------------------- | --------------------------- | ----------------------------------------------------------- |
-| **Frontend**           | Vue.js 3 + Quasar           | Interfaz de usuario, POS, facturación y gestión operativa   |
-| **Backend**            | PHP / Laravel 11            | Lógica de negocio, API REST transaccional                   |
-| **Base de datos OLTP** | PostgreSQL                  | Almacén transaccional normalizado (compras, ventas, kardex) |
-| **ETL**                | Python                      | Extracción, transformación y carga idempotente              |
-| **Data Warehouse**     | PostgreSQL (Docker)         | Esquema estrella analítico (`dw.*`)                         |
-| **Dashboard BI**       | Streamlit + Plotly          | Plataforma analítica ejecutiva (8 módulos especializados)   |
+El repositorio se encuentra organizado de forma modular, separando cada componente de la arquitectura:
+
+```
+repo_proyecto_final_diplomado/
+├── Dashboards/                         # Suite Analítica Empresarial en Streamlit
+│   ├── app.py                          # Orquestador de navegación multinivel (st.navigation)
+│   ├── db.py                           # Capa de acceso a datos contra dw.* vía SQLAlchemy
+│   ├── filters.py                      # Motor de filtros reactivos sincronizados en sesión
+│   ├── styles.py                       # Sistema visual y diseño corporativo
+│   ├── requirements.txt                # Dependencias de Python para la plataforma analítica
+│   └── views/                          # 8 Módulos de inteligencia de negocios
+│       ├── 0_Inicio.py                 # Resumen ejecutivo y KPIs globales
+│       ├── 1_Resumen_Ejecutivo_CMI.py  # Cuadro de Mando Integral en 4 dimensiones
+│       ├── 2_Rendimiento_Sucursales.py # Comparativa Head-to-Head entre sucursales
+│       ├── 3_Rentabilidad_Productos.py # Curva de Pareto 80/20 y análisis ABC de SKUs
+│       ├── 4_Inventario_y_Alertas.py   # Monitor de existencias críticas (< 15 piezas)
+│       ├── 5_Compras_y_Proveedores.py  # Gasto en adquisiciones y concentración
+│       ├── 6_Balance_IVA_Fiscal.py     # Cuadratura tributaria mensual de IVA (13%)
+│       └── 7_Catalogo_Indicadores.py   # Manual normativo de métricas institucionales
+├── DataWareHouse/                      # Definición e infraestructura del Almacén Analítico
+│   ├── docker-compose.yml              # Orquestación de PostgreSQL 16 en puerto 5433
+│   └── sql/                            # Scripts DDL de inicialización automática
+│       ├── 01_create_schemas_and_staging.sql
+│       ├── 02_create_dimensions.sql
+│       ├── 03_create_facts.sql
+│       └── 04_create_indexes_and_views.sql
+├── InventaryApp/                       # Frontend Web Operacional (Punto de Venta / POS)
+│   ├── src/                            # Componentes Vue 3, vistas, Pinia y rutas
+│   ├── package.json                    # Dependencias de Node.js / Vite
+│   └── vite.config.js                  # Configuración del bundler de desarrollo
+├── InventaryAppApi/                    # Backend Web Operacional (API REST en Laravel 11)
+│   ├── app/                            # Controladores, modelos Eloquent y servicios
+│   ├── database/migrations/            # Esquema relacional operacional en PostgreSQL
+│   ├── database/seeders/               # Generadores de catálogo y transacciones base
+│   └── composer.json                   # Dependencias de PHP y Laravel
+├── ProcesoETL/                         # Pipeline de Extracción, Transformación y Carga
+│   ├── main.py                         # Script principal de ejecución del pipeline
+│   ├── test_etl.py                     # Suite de pruebas unitarias automatizadas con pytest
+│   └── requirements.txt                # Dependencias de Python para el proceso ETL
+├── dataset_test.sql                    # Dataset representativo DML reproducible para PostgreSQL
+├── diagrama_modelo_operacional.png     # Diagrama Entidad-Relación 3NF del sistema transaccional
+├── diagrama_modelo_dimensional.png     # Diagrama de Constelación del Data Warehouse
+├── Evidencias_optimizacion_consultas_sistema_operacional.sql  # Trazas EXPLAIN ANALYZE OLTP
+├── Evidencias_optimizacion_consultas_datawarehouse.sql        # Trazas EXPLAIN ANALYZE OLAP
+└── README.md                           # Documentación principal del repositorio
+```
 
 ---
 
-## 📊 Componente 1 — Sistema OLTP (InventaryApp)
+## 🛠️ Marco Tecnológico Integrado
 
-### Descripción
-
-Sistema web transaccional que centraliza la recopilación, validación y almacenamiento de las operaciones comerciales de la empresa.
-
-### Módulos Implementados
-
-| Módulo                     | Descripción                                                                  |
-| -------------------------- | ---------------------------------------------------------------------------- |
-| **Ventas (POS)**           | Punto de venta con cálculo de IVA, métodos de pago y tickets térmicos        |
-| **Compras**                | Registro de compras a proveedores con actualización automática de inventario |
-| **Inventario / Kardex**    | Control de stock por sucursal con trazabilidad completa de movimientos       |
-| **Productos**              | Catálogo con categorías, subcategorías, marcas, modelos e imágenes           |
-| **Clientes / Proveedores** | Gestión con validación de NIT/NRC/correo                                     |
-| **Usuarios y Roles**       | Control de acceso (Administrador, Gerente, Vendedor, Bodeguero)              |
-| **Reportes**               | Análisis básico de ventas, compras e inventario                              |
-| **Configuración**          | IVA, empresa, moneda, series y correlativos parametrizables                  |
-
-### Stack del Sistema OLTP
-
-```
-InventaryApp/
-├── InventaryApp/          # Frontend — Quasar (Vue 3) + Electron
-│   └── src/
-│       ├── pages/         # Vistas: Ventas, Compras, Kardex, Productos...
-│       ├── store/         # Estado global con Pinia
-│       └── boot/          # Configuración de Axios, i18n
-└── InventaryAppApi/       # Backend — Laravel 11
-    └── app/
-        ├── Http/Controllers/  # Controladores API REST
-        ├── Models/            # Modelos Eloquent (18 entidades)
-        ├── Services/          # Lógica de negocio
-        └── Policies/          # Autorización por roles
-```
+| Área / Capa | Tecnología | Versión | Rol en el Proyecto |
+| :--- | :--- | :---: | :--- |
+| **Backend OLTP** | PHP / Laravel | 11.x | Lógica transaccional, autenticación RBAC, API REST |
+| **Frontend OLTP** | Vue.js / Vite | 3.x | Punto de Venta (POS), catálogo de sucursales y cajas |
+| **BD Operacional** | PostgreSQL | 16.x | Modelo normalizado en 3NF con soporte transaccional ACID |
+| **Data Warehouse** | PostgreSQL en Docker | 16-alpine | Esquema dimensional (`stg.*` y `dw.*`) en puerto 5433 |
+| **Pipeline ETL** | Python / SQLAlchemy / pandas | 3.10+ | Extracción batch, saneamiento y carga dimensional |
+| **Testing ETL** | pytest | 8.x | Validación de integridad referencial y cuadratura contable |
+| **Plataforma BI** | Streamlit / Plotly | 1.36+ | Cuadros de mando ejecutivos con navegación interactiva |
 
 ---
 
-## 🔄 Componente 2 — Proceso ETL (Python)
+## 🏛️ Modelos de Datos del Sistema
 
-El flujo ETL conecta el entorno operativo (OLTP) con el analítico (Data Warehouse):
+### 1. Modelo Operacional (OLTP - 3NF)
+El modelo relacional transaccional se compone de 17 entidades organizadas en dominios de negocio claros, garantizando integridad referencial mediante claves foráneas y restricciones de unicidad:
+- **Catálogo Central:** `categorias`, `subcategorias`, `marcas`, `modelos`, `unidads`, `productos`.
+- **Inventario Distribuido:** `sucursals`, `producto_sucursal` (existencias aisladas por sucursal), `kardexes` y `movimientos_inventarios`.
+- **Comercialización y Facturación:** `clientes`, `ventas`, `detalles_ventas` (con discriminación de IVA 13%, serie y correlativo).
+- **Abastecimiento:** `proveedors`, `compras`, `detalles_compras`.
+- **Administración y Control:** `users`, `roles`, `permissions`, `settings`.
 
-### Fases del ETL
+*Consulte el archivo gráfico `diagrama_modelo_operacional.png` para visualizar la estructura relacional completa con claves primarias y foráneas.*
 
-```
-EXTRACCIÓN                TRANSFORMACIÓN               CARGA
-─────────────────         ──────────────────────       ─────────────────
-PostgreSQL OLTP    ──►    Unificación de formatos  ──► Data Warehouse
-Tablas operativas         Cálculo de costos             (Modelo Dimensional)
-3 años de historial       derivados
-                          Limpieza de inconsistencias
-                          Normalización de catálogos
-```
+### 2. Modelo Dimensional (Data Warehouse - Esquema Constelación)
+El almacén de datos implementa un esquema multidimensional que permite analizar ventas, adquisiciones y la evolución temporal del stock:
+- **Tablas de Hechos (Facts):**
+  - `dw.fact_ventas`: Granularidad atómica por ítem vendido (18,401 tuplas con precio, costo, IVA, subtotal y margen bruto).
+  - `dw.fact_compras`: Detalle de adquisiciones con desglose de crédito fiscal por proveedor.
+  - `dw.fact_inventario_snapshot`: Instantáneas periódicas de existencias (60,000 registros con valorización de inventario al costo y precio de venta, con bandera booleana `stock_bajo_alerta`).
+- **Dimensiones Conformadas (Conformed Dimensions):**
+  - `dw.dim_tiempo`: Jerarquía completa de fechas (año, semestre, trimestre, mes, semana, día, día de la semana, bandera de fin de semana).
+  - `dw.dim_sucursal`: Sucursales físicas del negocio con datos de contacto y ubicación.
+  - `dw.dim_producto`: Atributos descriptivos unificados (categoría, subcategoría, marca, modelo, unidad de medida, costo y precio).
+  - `dw.dim_cliente`: Información tributaria (DUI, NIT, NRC) y categorización de clientes.
+  - `dw.dim_proveedor`: Datos fiscales y comerciales de fabricantes y distribuidores.
+  - `dw.dim_usuario`: Cajeros y operadores responsables de los registros.
 
-- **Ejecución**: en horarios de baja actividad comercial para no interrumpir la facturación.
-- **Librería principal**: Python con conectores PostgreSQL y librerías de procesamiento de datos.
-
----
-
-## 🏛️ Componente 3 — Data Warehouse (Modelo Dimensional)
-
-### Modelo Estrella
-
-```
-                    ┌──────────────┐
-                    │  dim_tiempo  │
-                    │  año/mes/día │
-                    └──────┬───────┘
-                           │
-┌──────────────┐    ┌──────┴───────┐    ┌──────────────────┐
-│  dim_producto│────│  fact_ventas │────│  dim_categoria   │
-│  nombre      │    │  unidades    │    │  nombre          │
-│  categoría   │    │  ingresos    │    │  subcategoría    │
-│  proveedor   │    │  costo       │    └──────────────────┘
-└──────────────┘    │  margen_bruto│
-                    │  rotación    │
-                    └──────┬───────┘
-                           │
-                    ┌──────┴───────┐
-                    │ dim_proveedor│
-                    │ nombre       │
-                    │ origen       │
-                    └──────────────┘
-```
-
-### Tablas de Hechos
-
-- `fact_ventas` — Unidades vendidas, ingresos, costo, margen bruto
-- `fact_compras` — Unidades adquiridas, costos por proveedor
-- `fact_inventario` — Niveles de stock, rotación
-
-### Dimensiones
-
-- `dim_tiempo` — Año, trimestre, mes, día
-- `dim_producto` — Nombre, categoría, subcategoría, unidad de medida
-- `dim_proveedor` — Nombre, origen, tipo
-- `dim_categoria` — Agrupación de productos por tipo
+*Consulte el archivo gráfico `diagrama_modelo_dimensional.png` para visualizar la constelación analítica con sus correspondientes relaciones de cardinalidad.*
 
 ---
 
-## 📈 Componente 4 — Plataforma Analítica Empresarial BI (Streamlit)
+## ⚡ Análisis y Evidencias de Optimización SQL
 
-La carpeta [`Dashboards/`](./Dashboards) contiene la solución integral de Business Intelligence y Analítica Empresarial desarrollada en **Streamlit** y **Plotly** para **Centro de Plásticos El Limeño**. 
+Se realizaron evaluaciones de desempeño mediante trazas reales de `EXPLAIN (ANALYZE, BUFFERS)` en ambos motores de bases de datos:
 
-### Arquitectura de Aislamiento y Desacoplamiento
+### 1. Optimización en el Sistema Operacional (OLTP)
+* **Búsqueda de Producto y Validación de Stock en Caja (POS):**
+  - *Problema:* El escaneo por SKU requería un `Index Scan` en la tabla `producto_sucursal`, forzando accesos a la tabla física en disco (`Heap Table Access`) para leer el stock actual.
+  - *Solución:* Creación de un **Índice de Cobertura** (`Covering Index`) con cláusula `INCLUDE`:
+    ```sql
+    CREATE INDEX idx_prod_sucursal_covering 
+    ON producto_sucursal (sucursal_id, producto_id) 
+    INCLUDE (stock_actual, stock_minimo);
+    ```
+  - *Resultado:* El plan cambió a `Index Only Scan` con **Heap Fetches: 0**, extrayendo el stock directamente desde la memoria RAM sin tocar el disco.
+* **Histórico de Ventas Pagadas por Sucursal:**
+  - *Problema:* Lectura inversa de fechas descartaba 104 registros de otras sucursales (`Rows Removed by Filter: 104`), con un costo de escaneo de 419.
+  - *Solución:* **Índice Compuesto Ordenado** `(sucursal_id, status, created_at DESC)`.
+  - *Resultado:* Descarte de tuplas reducido a 0 absoluto y costo de escaneo disminuido a 274 (-34.5%).
 
-- **Cero impacto al entorno transaccional**: La plataforma se conecta exclusivamente al Data Warehouse PostgreSQL (`dw.*`), garantizando que la explotación analítica nunca degrade las cajas y puntos de venta del sistema OLTP.
-- **Consultas optimizadas y almacenamiento en caché**: Motor analítico estructurado en `Dashboards/db.py` con decoradores `@st.cache_data` para acelerar los tiempos de respuesta y minimizar la latencia de red.
-- **Orquestación modular nativa**: Navegación lateral estructurada mediante `st.navigation`, agrupando los módulos en categorías lógicas del negocio sin menús transitorios ni parpadeos.
+### 2. Optimización en el Data Warehouse (OLAP)
+* **Cubo Agregado de Ventas y Margen Bruto (18,401 tuplas de hechos):**
+  - *Problema:* `Seq Scan` sobre la tabla de hechos con lectura de 709 bloques de memoria y 28.1 ms de tiempo de ejecución.
+  - *Solución:* **Índice Compuesto Dimensional** en las llaves foráneas de hechos:
+    ```sql
+    CREATE INDEX idx_fact_ventas_reporting 
+    ON dw.fact_ventas (fecha_sk, sucursal_sk, producto_sk);
+    ```
+  - *Resultado:* Tiempo de ejecución reducido a 17.4 ms (-38%) y tiempo de planeación reducido de 11.2 ms a 2.3 ms (-79.4%).
+* **Monitoreo de Alertas de Stock Crítico en Snapshots (60,000 tuplas):**
+  - *Problema:* `Seq Scan` descartando 56,680 tuplas con stock normal, requiriendo ordenamiento en memoria (`top-N heapsort`) y consumiendo 192.6 ms.
+  - *Solución:* **Índice Parcial** B-Tree pre-ordenado:
+    ```sql
+    CREATE INDEX idx_snapshot_alerta_parcial 
+    ON dw.fact_inventario_snapshot (stock_actual ASC, producto_sk, sucursal_sk, fecha_sk) 
+    WHERE stock_bajo_alerta = true;
+    ```
+  - *Resultado:* Tiempo de respuesta reducido a **1.72 ms** (aceleración superior a **111x** sin requerir paso de ordenamiento).
 
-### Módulos Analíticos Implementados
+*Las trazas completas y reproducibles se encuentran en los archivos `Evidencias_optimizacion_consultas_sistema_operacional.sql` y `Evidencias_optimizacion_consultas_datawarehouse.sql`.*
+
+---
+
+## 📈 Plataforma de Business Intelligence (Streamlit)
+
+La suite analítica ubicada en la carpeta `Dashboards/` implementa una interfaz ejecutiva con tema corporativo oscuro, métricas reactivas y navegación orquestada con `st.navigation`:
 
 ```
 Dashboards/
-├── app.py                             # Orquestador principal de navegación (st.navigation)
-├── db.py                              # Conector SQLAlchemy al Data Warehouse y consultas agregadas
-├── filters.py                         # Motor de filtros reactivos globales sincronizados en sesión
-├── styles.py                          # Sistema de diseño ejecutivo, tema oscuro y Material Symbols
-├── .streamlit/config.toml             # Configuración de servidor, cliente y tema corporativo
-└── views/                             # 8 Módulos de inteligencia de negocios
-    ├── 0_Inicio.py                    # Panel Principal y Resumen Operativo
-    ├── 1_Resumen_Ejecutivo_CMI.py     # Rendimiento Estratégico y Control Multidimensional
-    ├── 2_Rendimiento_Sucursales.py    # Desempeño Comercial por Punto de Venta
-    ├── 3_Rentabilidad_Productos.py    # Rentabilidad, Análisis ABC y Pareto 80/20
-    ├── 4_Inventario_y_Alertas.py      # Control de Stock Crítico y Cobertura
-    ├── 5_Compras_y_Proveedores.py     # Abastecimiento y Concentración de Proveedores
-    ├── 6_Balance_IVA_Fiscal.py        # Cuadratura Tributaria y Liquidación de IVA
-    └── 7_Catalogo_Indicadores.py      # Manual Institucional de Métricas y Gobernanza
-```
-
-#### 1. Macro-Sección: Visión Estratégica
-* **Panel Principal** (`views/0_Inicio.py`): Vista ejecutiva de KPIs consolidados (Facturación neta de $3.27M, Margen Ponderado de 23.17%, Ticket Medio de $355.85, 9,201 transacciones verificadas), donut de participación por sucursal, tendencia temporal dinámica con auto-resolución diaria/mensual, monitor de bodega y diagnósticos comerciales.
-* **Rendimiento y Estrategia** (`views/1_Resumen_Ejecutivo_CMI.py`): Cuadro de mando integral organizado en 4 dimensiones de control (Financiera, Comercial/Clientes, Procesos Internos, Catálogo y Almacén), cadena causal de alertas preventivas e histórico anual.
-
-#### 2. Macro-Sección: Operaciones Comerciales
-* **Sucursales y Canales** (`views/2_Rendimiento_Sucursales.py`): Análisis comparativo Head-to-Head entre las 3 sucursales físicas:
-  * **Usulután**: Líder en volumen de facturación ($1,633,508.87 en 3,067 ventas) con modelo semi-mayorista (Ticket: $532.61, Margen: 23.12%).
-  * **San Miguel - Metrocentro**: Canal de tráfico continuo ($1,080,756.65 en 3,066 ventas, Ticket: $352.50, Margen: 21.36%).
-  * **San Miguel - Matriz Centro**: Canal minorista de máxima rentabilidad ($559,813.99 en 3,068 ventas, Ticket: $182.47, Margen récord: 26.80%).
-  * Matriz de dispersión interactiva Ticket Medio vs. Margen Bruto.
-* **Rentabilidad y Catálogo ABC** (`views/3_Rentabilidad_Productos.py`): Curva de Pareto 80/20 sobre facturación acumulada, clasificación ABC de SKUs, matriz de cuadrantes Margen vs. Volumen para detectar la trampa de artículos inmovilizados, y rankings Top/Bottom.
-* **Control de Stock y Alertas** (`views/4_Inventario_y_Alertas.py`): Monitor preventivo de 16 artículos críticos con existencias físicas menores al umbral de seguridad (< 15 unidades), cálculo de días de inventario (DSI) y generador exportable de órdenes de reposición para bodega.
-
-#### 3. Macro-Sección: Cadena de Suministro y Finanzas
-* **Abastecimiento y Proveedores** (`views/5_Compras_y_Proveedores.py`): Control de gasto en adquisiciones ($2.52M acumulados en 8 fabricantes), índice de concentración en proveedores líderes (Plásticos de El Salvador con 46.85%), e IVA Crédito fiscal soportado ($289.89K).
-* **Cuadratura y Balance Fiscal** (`views/6_Balance_IVA_Fiscal.py`): Auditoría tributaria mensual de IVA Débito (ventas $376.65K) vs. IVA Crédito (compras $289.89K), arrojando una obligación neta histórica de liquidación fiscal de $86,761.79 ante el Ministerio de Hacienda (13%).
-* **Manual de Métricas y Gobernanza Financiera** (`views/7_Catalogo_Indicadores.py`): Catálogo normativo con 7 fichas técnicas (`MET-FIN-01` a `MET-ABAS-07`), formulación matemática institucional en notación algebraica pura (sin expresiones SQL), reglas de contrapeso para auditoría interna y Procedimiento Operativo Estandarizado (POE) para cierres contables.
-
-### Motor de Filtros Globales y Reactividad
-
-El módulo `filters.py` dota a la plataforma de una barra de control lateral reactiva y sincronizada:
-- **Filtro Temporal Multinivel**: Selección de ejercicio anual (2016 a 2026), selector de fecha exacta por rango (`date_input`), semana del año (1 a 52), día de la semana (Lunes a Domingo) y mes del año.
-- **Filtros Comerciales**: Selección de sucursales físicas y categorías de productos.
-- **Persistencia en Sesión**: Almacenamiento dinámico en `st.session_state` con botón de reseteo integral a valores predeterminados.
-
----
-
-## 🗄️ Base de Datos OLTP
-
-### Entidades Principales
-
-```sql
--- Catálogos
-categorias, subcategorias, marcas, modelos, unidads
-productos, clientes, proveedors, sucursals, users
-
--- Transacciones
-ventas, detalles_ventas
-compras, detalles_compras
-
--- Inventario
-producto_sucursal  -- Stock aislado por sucursal
-kardex             -- Trazabilidad de todos los movimientos
-movimientos_inventarios
-
--- Sistema
-settings           -- Configuración parametrizada
-audit_logs         -- Auditoría del sistema
+├── app.py                             # Orquestador general y menú de navegación
+├── db.py                              # Conector SQLAlchemy con caché analítica (@st.cache_data)
+├── filters.py                         # Motor de filtros multidimensionales en st.session_state
+├── styles.py                          # Sistema de diseño con tokens visuales y estilos CSS
+└── views/                             # Módulos analíticos especializados
+    ├── 0_Inicio.py                    # Vista global de facturación ($3.27M), margen y ticket promedio
+    ├── 1_Resumen_Ejecutivo_CMI.py     # Cuadro de Mando Integral en 4 dimensiones estratégicas
+    ├── 2_Rendimiento_Sucursales.py    # Comparativa de canales (Usulután, Metrocentro y Matriz Centro)
+    ├── 3_Rentabilidad_Productos.py    # Análisis ABC de SKUs y curva de Pareto 80/20
+    ├── 4_Inventario_y_Alertas.py      # Monitor de existencias bajo stock mínimo y cobertura
+    ├── 5_Compras_y_Proveedores.py     # Auditoría de compras ($2.52M) y concentración de proveedores
+    ├── 6_Balance_IVA_Fiscal.py        # Liquidación fiscal: IVA Débito ($376.6K) vs. IVA Crédito ($289.8K)
+    └── 7_Catalogo_Indicadores.py      # Fichas técnicas normativas institucionales de KPIs
 ```
 
 ---
 
-## 🚀 Instalación del Sistema OLTP
+## 🚀 Guía de Instalación y Ejecución
 
-### Prerrequisitos
+A continuación se detallan los pasos para poner en marcha cada uno de los componentes de la arquitectura.
 
-- **PHP** >= 8.2 + **Composer** >= 2.x
-- **Node.js** >= 18.x + **npm** >= 6.13
-- **PostgreSQL** 14+ (o MySQL 8.x)
-- **Python** >= 3.10 (para el ETL)
+### 1. Requisitos Previos del Sistema
+- **Git** instalado en el sistema.
+- **Docker Desktop** activo con soporte para contenedores Linux.
+- **PHP 8.2+** con extensiones activas: `pdo_pgsql`, `pgsql`, `mbstring`, `fileinfo`.
+- **Composer 2.x**.
+- **Node.js 18+** y gestor `npm`.
+- **Python 3.10+** con gestor de paquetes `pip`.
 
-### 1. Clonar el Repositorio
+---
+
+### 2. Despliegue del Data Warehouse (Docker)
+El contenedor de base de datos analítica debe inicializarse en primer lugar:
 
 ```bash
-git clone https://github.com/cristianpined4/repo_proyecto_final_diplomado.git
-cd repo_proyecto_final_diplomado
+cd DataWareHouse
+docker compose up -d
 ```
 
-### 2. Backend (Laravel API)
+*Verificación de estado:*
+```bash
+docker ps --filter "name=inventory_dw_pg"
+```
+*Parámetros de conexión:* Host: `localhost` | Puerto: `5433` | BD: `inventory_dw` | Usuario: `dw_admin` | Clave: `dw_secure_password_2026`.
+
+---
+
+### 3. Despliegue del Backend Operacional (Laravel API)
+En una nueva terminal, configure y levante la API transaccional:
 
 ```bash
 cd InventaryAppApi
@@ -322,118 +298,80 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-Configurar la conexión en `.env`:
-
-```env
-DB_CONNECTION=pgsql          # PostgreSQL como BD principal
-DB_HOST=127.0.0.1
-DB_PORT=5432
-DB_DATABASE=plasticos_limeno
-DB_USERNAME=postgres
-DB_PASSWORD=tu_contraseña
-```
+Configure la conexión a PostgreSQL en su archivo `.env` y ejecute las migraciones y datos iniciales:
 
 ```bash
-php artisan migrate --seed   # Migraciones + datos de prueba
-php artisan storage:link     # Enlace para imágenes de productos
-php artisan serve            # API en http://localhost:8000
+php artisan migrate:fresh --seed
+php artisan serve
 ```
+*La API estará escuchando en `http://127.0.0.1:8000`.*  
+*(Opcional: Si prefiere poblar la base directamente con SQL, ejecute el script `dataset_test.sql` en su cliente de PostgreSQL).*
 
-### 3. Frontend (Quasar + Vue 3)
+---
+
+### 4. Despliegue del Frontend Web (Vue.js 3 / Vite)
+En una nueva terminal, instale dependencias y ejecute el servidor de desarrollo:
 
 ```bash
-cd ../InventaryApp
+cd InventaryApp
 npm install
-npm run dev                  # App en http://localhost:9000
+npm run dev
 ```
+*La aplicación web estará accesible en el navegador en `http://localhost:5173`.*
 
-Para compilar la versión de escritorio (Electron):
+---
+
+### 5. Ejecución del Proceso ETL y Pruebas Unitarias (Python)
+Para extraer los datos del sistema operacional y poblar el Data Warehouse dimensional:
 
 ```bash
-npm run build
-```
+cd ProcesoETL
+python -m venv venv
 
-### 4. ETL (Python)
+# Activar el entorno virtual:
+# En Windows:
+venv\Scripts\activate
+# En Linux / macOS:
+source venv/bin/activate
 
-```bash
-cd etl/
 pip install -r requirements.txt
-python etl_main.py           # Ejecutar el proceso ETL
+python main.py
 ```
 
-### 5. Plataforma de Dashboards BI (Streamlit)
+*Para ejecutar la suite de pruebas unitarias de validación contable y dimensional:*
+```bash
+pytest test_etl.py -v
+```
 
-Asegúrese de contar con el Data Warehouse en ejecución (PostgreSQL en Docker en el puerto 5433 o configurado en `.env`).
+---
+
+### 6. Ejecución de la Plataforma Analítica (Streamlit)
+En una nueva terminal, instale las librerías analíticas e inicie los dashboards:
 
 ```bash
-cd Dashboards/
+cd Dashboards
 pip install -r requirements.txt
 python -m streamlit run app.py
 ```
 
-La plataforma estará disponible en el navegador en `http://localhost:8501`.
+*La plataforma se abrirá automáticamente en su navegador en `http://localhost:8501`.*
 
 ---
 
-## 🔑 Credenciales por Defecto
+## 🔑 Credenciales de Acceso por Defecto
 
-| Usuario | Contraseña | Rol           |
-| ------- | ---------- | ------------- |
-| `admin` | `admin`    | Administrador |
-
-> ⚠️ **Cambiar las credenciales antes de poner en producción.**
-
----
-
-## 📐 Principios de Diseño
-
-### Sistema OLTP
-
-- **Paginación y búsqueda 100% server-side** — Optimizado para +100,000 registros
-- **Inventario por sucursal** — No existe stock global; todo pertenece a una sucursal
-- **Trazabilidad total** — Todo movimiento genera registro en el kardex
-- **IVA y parámetros desde BD** — Sin valores hardcodeados en el código
-- **Índices compuestos** — Para búsquedas de alta frecuencia en productos, clientes y proveedores
-
-### Data Warehouse
-
-- **Separación OLTP/OLAP** — La carga analítica no impacta el sistema transaccional
-- **Modelo dimensional (estrella)** — Consultas analíticas rápidas sobre histórico
-- **ETL automatizable** — Actualización en horarios de baja actividad
-- **Historial de 3 años** — Base de datos con registros históricos completos
-
-### Plataforma Analítica (BI)
-
-- **Aislamiento absoluto** — Lectura exclusiva contra `dw.*` vía SQLAlchemy
-- **No aditividad** — Recálculo estricto de márgenes y razones sobre sumatorias atómicas
-- **Navegación nativa** — `st.navigation` organizada en 3 macro-secciones y 8 módulos ejecutivos
-- **Filtros globales persistentes** — Sincronización en tiempo real vía `st.session_state`
-
----
-
-## 🎓 Contexto Académico
-
-**Programa:** Pre-Especialización en Bases de Datos e Inteligencia de Negocios  
-**Institución:** Universidad de El Salvador (UES)  
-**Empresa objetivo:** Centro de Plásticos Limeño — San Miguel, El Salvador  
-**Tipo de proyecto:** Proyecto Final Integrador  
-
-### Áreas de Conocimiento Aplicadas
-
-- ✅ Diseño y modelado de bases de datos relacionales (PostgreSQL)
-- ✅ Optimización de consultas SQL e índices (OLTP)
-- ✅ Arquitectura de datos y separación OLTP/OLAP
-- ✅ Proceso ETL con Python para integración de datos históricos
-- ✅ Modelado dimensional (esquema estrella/copo de nieve)
-- ✅ Desarrollo de dashboards BI avanzados (Streamlit + Plotly)
-- ✅ Definición y cálculo de KPIs de rentabilidad, inventario y fiscalidad
-- ✅ Desarrollo de sistemas web (Laravel + Vue.js)
-- ✅ Control de acceso basado en roles y auditoría de datos
+| Componente | Usuario / Identificador | Contraseña | Rol / Permiso |
+| :--- | :--- | :--- | :--- |
+| **Sistema Web OLTP** | `admin@plasticoslimeno.com` (o `admin`) | `password` (o `admin`) | Administrador General del Sistema |
+| **Data Warehouse (Docker)** | `dw_admin` | `dw_secure_password_2026` | Administrador de Esquemas `stg` y `dw` |
+| **Base de Datos Operacional** | `postgres` | Configurada en `.env` | Acceso a nivel de base de datos |
 
 ---
 
 <div align="center">
 
-_Desarrollado con ❤️ por el equipo PB20002 · VV18009 · PB19022 — UES 2026_
+**Universidad de El Salvador — Facultad Multidisciplinaria Oriental**  
+*Curso de Especialización en Administración de Bases de Datos e Inteligencia de Negocios 2026*  
+*Desarrollado por Cristian Alberto Pineda Blanco, Andrés Isaí Vásquez Vásquez y Luis Andrés Parada Barrero*
 
 </div>
