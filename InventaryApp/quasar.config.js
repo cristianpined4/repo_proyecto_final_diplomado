@@ -12,7 +12,7 @@ const { configure } = require("quasar/wrappers");
 const path = require("path");
 
 // URL del backend - fuente única de verdad
-const BACKEND_URL = 'https://maroon-ibex-276164.hostingersite.com';
+const BACKEND_URL = 'http://localhost:8000';
 
 module.exports = configure(function (/* ctx */) {
   return {
