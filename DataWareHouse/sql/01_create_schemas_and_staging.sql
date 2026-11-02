@@ -3,9 +3,6 @@
 -- Data Warehouse / Data Mart - InventoryApp
 -- ============================================================================
 
--- 0. Creacion de bases de datos
-CREATE DATABASE IF NOT EXISTS sistema_limeno;
-
 -- 1. Creacion de esquemas analiticos
 CREATE SCHEMA IF NOT EXISTS stg;
 COMMENT ON SCHEMA stg IS 'Zona de Staging: recepcion temporal y sin restricciones de datos operacionales extraidos';
